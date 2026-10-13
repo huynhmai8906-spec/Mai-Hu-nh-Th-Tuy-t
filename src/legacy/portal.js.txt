@@ -1,0 +1,98 @@
+
+// Chuyển đổi qua lại giữa Tab Đăng Nhập & Tab Đăng Ký
+function switchAuthTab(mode) {
+  const tabLogin = document.getElementById('tab-login');
+  const tabRegister = document.getElementById('tab-register');
+  const panelLogin = document.getElementById('panel-login');
+  const panelRegister = document.getElementById('panel-register');
+
+  if (mode === 'login') {
+    tabLogin.className = 'pb-3 px-5 font-headline font-bold text-sm sm:text-base border-b-2 border-primary text-primary transition-all flex items-center gap-2';
+    tabRegister.className = 'pb-3 px-5 font-headline font-medium text-sm sm:text-base border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-2';
+    panelLogin.classList.remove('hidden');
+    panelRegister.classList.add('hidden');
+  } else {
+    tabRegister.className = 'pb-3 px-5 font-headline font-bold text-sm sm:text-base border-b-2 border-primary text-primary transition-all flex items-center gap-2';
+    tabLogin.className = 'pb-3 px-5 font-headline font-medium text-sm sm:text-base border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-2';
+    panelRegister.classList.remove('hidden');
+    panelLogin.classList.add('hidden');
+  }
+}
+
+// Ẩn/Hiện mật khẩu
+function togglePasswordVisibility() {
+  const pwdInput = document.getElementById('input-pwd');
+  const eyeIcon = document.getElementById('eye-icon');
+  if (pwdInput.type === 'password') {
+    pwdInput.type = 'text';
+    eyeIcon.textContent = 'visibility_off';
+  } else {
+    pwdInput.type = 'password';
+    eyeIcon.textContent = 'visibility';
+  }
+}
+
+// Xử lý đăng nhập thành công -> Chuyển vào Dashboard
+function unlockToDashboard() {
+  const authScreen = document.getElementById('auth-screen');
+  const dashboardScreen = document.getElementById('dashboard-screen');
+
+  authScreen.classList.add('hidden');
+  dashboardScreen.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Khóa màn hình -> Quay về giao diện đăng nhập ban đầu
+function lockToAuthScreen() {
+  const authScreen = document.getElementById('auth-screen');
+  const dashboardScreen = document.getElementById('dashboard-screen');
+
+  dashboardScreen.classList.add('hidden');
+  authScreen.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Xem nhanh Dashboard
+function bypassToDashboard() {
+  unlockToDashboard();
+}
+
+// Submit Form Đăng Nhập
+function submitLoginForm() {
+  const btn = document.getElementById('btn-login-submit');
+  btn.innerHTML = '<span class="material-symbols-outlined text-xl animate-spin">progress_activity</span><span>Đang xác thực thông tin y tế...</span>';
+  setTimeout(() => {
+    btn.innerHTML = '<span class="material-symbols-outlined text-xl">check</span><span>Xác thực thành công! Đang vào EHR...</span>';
+    setTimeout(() => {
+      unlockToDashboard();
+      btn.innerHTML = '<span class="material-symbols-outlined text-xl text-primary-fixed">lock_open</span><span>Đăng Nhập Cổng Bệnh Nhân & Mở Khóa Hồ Sơ EHR</span>';
+    }, 600);
+  }, 700);
+}
+
+// Submit Form Đăng Ký
+function submitRegisterForm() {
+  alert('Đăng ký hồ sơ bệnh nhân thành công! Hệ thống đã cấp mã PID: GC-88295-VN và điều phối bác sĩ tiếp nhận.');
+  unlockToDashboard();
+}
+
+// Đăng nhập nhanh VNeID hoặc Google SSO
+function handleFastLogin(channel) {
+  alert('Đang kết nối xác thực an toàn qua kênh: ' + channel + '...');
+  setTimeout(() => {
+    unlockToDashboard();
+  }, 400);
+}
+
+// Thay đổi điểm đau
+function setPainLevel(score, label) {
+  const display = document.getElementById('score-text');
+  if (display) display.textContent = label;
+  document.querySelectorAll('.pain-opt').forEach((btn, idx) => {
+    if (idx === score) {
+      btn.className = 'pain-opt py-2 rounded-lg bg-primary text-white text-xs font-bold shadow-sm';
+    } else {
+      btn.className = 'pain-opt py-2 rounded-lg bg-surface-container-lowest text-xs font-bold border border-outline-variant/30 text-on-surface hover:bg-primary hover:text-white';
+    }
+  });
+}

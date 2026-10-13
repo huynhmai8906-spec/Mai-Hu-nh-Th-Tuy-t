@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" width="520" height="120" fill="none">
+  <defs>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A6B56"/>
+      <stop offset="60%" stop-color="#0D7C66"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="goldWarmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0D7C66" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <!-- Biểu tượng ý nghĩa: Bàn tay che chở + Trái tim y đức + Vòng tròn kết nối tức thì -->
+  <g transform="translate(14, 10)" filter="url(#softGlow)">
+    <!-- Vòng tròn bảo hộ ngoại biên với nét hở tượng trưng cho sự đón nhận và kết nối liên tục -->
+    <circle cx="50" cy="50" r="46" fill="#F0FDF4" stroke="#CCFBF1" stroke-width="1.5"/>
+    <circle cx="50" cy="50" r="43" stroke="url(#primaryGrad)" stroke-width="2.5" stroke-dasharray="190 35" stroke-linecap="round"/>
+
+    <!-- Làn sóng radar / tín hiệu kết nối thông minh tức thì -->
+    <path d="M72 32 C78 38 81 46 81 54 C81 58 80 62 78 66" stroke="url(#goldWarmGrad)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 4"/>
+    <circle cx="75" cy="35" r="2.5" fill="#F59E0B"/>
+
+    <!-- Biểu tượng Trái tim kết hợp Chữ Thập & Bàn tay nâng đỡ nhân ái -->
+    <!-- Bàn tay trái đỡ cong mềm mại ôm trọn -->
+    <path d="M26 62 C26 73 35 81 48 81 C60 81 68 74 72 65 C67 67 61 67 55 65 C43 61 36 52 34 40 C29 46 26 54 26 62 Z" fill="url(#primaryGrad)" opacity="0.95"/>
+
+    <!-- Cánh tim trung tâm hòa nhịp yêu thương & y đức -->
+    <path d="M50 36 C44 26 31 28 31 40 C31 52 46 64 50 67 C54 64 69 52 69 40 C69 28 56 26 50 36 Z" fill="url(#primaryGrad)"/>
+
+    <!-- Nhịp đập sự sống & Kết nối trực tuyến tức thì (Golden Vital Wave / Pulse) -->
+    <path d="M36 43 L42 43 L45 36 L49 50 L53 40 L56 46 L60 43 L64 43" stroke="url(#goldWarmGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Hạt nhân ánh sáng bảo hộ trên đỉnh tim -->
+    <circle cx="50" cy="24" r="3.5" fill="url(#goldWarmGrad)"/>
+  </g>
+
+  <!-- Typography & Thông điệp thương hiệu -->
+  <g transform="translate(128, 22)">
+    <!-- Tên thương hiệu GoCare -->
+    <text x="0" y="36" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="36" font-weight="800" letter-spacing="-0.8" fill="#132A23">
+      Go<tspan fill="#0D7C66">Care</tspan>
+    </text>
+
+    <!-- Huy hiệu bảo chứng y tế 24/7 & Chuẩn chất lượng -->
+    <g transform="translate(150, 12)">
+      <rect x="0" y="0" width="112" height="24" rx="12" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
+      <circle cx="12" cy="12" r="4" fill="#10B981"/>
+      <text x="22" y="16" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10.5" font-weight="700" fill="#92400E" letter-spacing="0.2">
+        KẾT NỐI 24/7
+      </text>
+    </g>
+
+    <!-- Định vị slogan mới: AN TÂM CHĂM SÓC - KẾT NỐI TỨC THÌ -->
+    <text x="2" y="58" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#0D7C66">
+      AN TÂM CHĂM SÓC <tspan fill="#D97706">•</tspan> <tspan fill="#245446">KẾT NỐI TỨC THÌ</tspan>
+    </text>
+
+    <!-- Dòng định vị phụ tinh tế chuẩn dịch vụ y khoa gia đình -->
+    <text x="2" y="76" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="500" letter-spacing="0.5" fill="#64748B">
+      Giải pháp điều dưỡng &amp; hỗ trợ y tế tại nhà thông minh
+    </text>
+  </g>
+</svg>

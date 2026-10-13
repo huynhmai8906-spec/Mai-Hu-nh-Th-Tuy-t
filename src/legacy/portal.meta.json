@@ -1,0 +1,14 @@
+{
+  "bodyClass": "bg-surface font-body text-on-surface antialiased min-h-screen relative",
+  "fns": [
+    "switchAuthTab",
+    "togglePasswordVisibility",
+    "unlockToDashboard",
+    "lockToAuthScreen",
+    "bypassToDashboard",
+    "submitLoginForm",
+    "submitRegisterForm",
+    "handleFastLogin",
+    "setPainLevel"
+  ]
+}

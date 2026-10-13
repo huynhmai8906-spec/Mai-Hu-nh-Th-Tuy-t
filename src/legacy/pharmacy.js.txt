@@ -1,0 +1,55 @@
+
+  // Simple Horizontal Scroll Interactivity for Exclusive Plans
+  const track = document.getElementById('serviceTrack');
+  const leftBtn = document.getElementById('scrollLeftBtn');
+  const rightBtn = document.getElementById('scrollRightBtn');
+
+  if (leftBtn && rightBtn && track) {
+    leftBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -340, behavior: 'smooth' });
+    });
+    rightBtn.addEventListener('click', () => {
+      track.scrollBy({ left: 340, behavior: 'smooth' });
+    });
+  }
+
+  // Interactive Category Filter for Boutique Pharmacy
+  const categoryBtns = document.querySelectorAll('.category-btn');
+  const productCards = document.querySelectorAll('.product-card');
+  const searchInput = document.getElementById('pharmacySearchInput');
+
+  function filterProducts() {
+    const activeBtn = document.querySelector('.category-btn.active');
+    const selectedCategory = activeBtn ? activeBtn.getAttribute('data-cat') : 'all';
+    const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+    productCards.forEach(card => {
+      const cardCategory = card.getAttribute('data-category') || '';
+      const textContent = card.innerText.toLowerCase();
+
+      const matchesCat = (selectedCategory === 'all') || cardCategory.includes(selectedCategory);
+      const matchesSearch = query === '' || textContent.includes(query);
+
+      if (matchesCat && matchesSearch) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  categoryBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      categoryBtns.forEach(b => {
+        b.classList.remove('active', 'bg-[#0D7C66]', 'text-white');
+        b.classList.add('bg-emerald-50', 'text-[#065f46]');
+      });
+      btn.classList.add('active', 'bg-[#0D7C66]', 'text-white');
+      btn.classList.remove('bg-emerald-50', 'text-[#065f46]');
+      filterProducts();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', filterProducts);
+  }

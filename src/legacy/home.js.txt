@@ -1,0 +1,217 @@
+
+// 1. Transformation Before / After View Switcher
+function setTransformationView(type) {
+  const beforeView = document.getElementById('view-before');
+  const afterView = document.getElementById('view-after');
+  const btnBefore = document.getElementById('btn-show-before');
+  const btnAfter = document.getElementById('btn-show-after');
+
+  if (type === 'before') {
+    beforeView.classList.remove('hidden');
+    setTimeout(() => {
+      beforeView.classList.remove('opacity-0');
+      beforeView.classList.add('opacity-100');
+    }, 10);
+    afterView.classList.add('hidden', 'opacity-0');
+    afterView.classList.remove('opacity-100');
+
+    btnBefore.className = "flex items-center gap-2 px-5 sm:px-8 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 bg-stone-800 text-white shadow-md";
+    btnAfter.className = "flex items-center gap-2 px-5 sm:px-8 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 text-stone-600 hover:text-stone-900";
+  } else {
+    afterView.classList.remove('hidden');
+    setTimeout(() => {
+      afterView.classList.remove('opacity-0');
+      afterView.classList.add('opacity-100');
+    }, 10);
+    beforeView.classList.add('hidden', 'opacity-0');
+    beforeView.classList.remove('opacity-100');
+
+    btnAfter.className = "flex items-center gap-2 px-5 sm:px-8 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 bg-gradient-to-r from-[#0D7C66] to-[#10B981] text-white shadow-md";
+    btnBefore.className = "flex items-center gap-2 px-5 sm:px-8 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 text-stone-600 hover:text-stone-900";
+  }
+}
+
+// 2. Package Category Filter
+function filterPackages(category, btnElement) {
+  const cards = document.querySelectorAll('.pricing-card');
+  const buttons = document.querySelectorAll('.package-filter-btn');
+
+  buttons.forEach(b => {
+    b.className = "package-filter-btn px-4 py-1.5 rounded-full text-xs font-bold bg-white text-stone-700 hover:bg-emerald-50 border border-stone-200 transition-all";
+  });
+  btnElement.className = "package-filter-btn px-4 py-1.5 rounded-full text-xs font-bold bg-[#0D7C66] text-white shadow-xs transition-all";
+
+  cards.forEach(card => {
+    const cardCat = card.getAttribute('data-category');
+    if (category === 'all' || cardCat === category) {
+      card.style.display = 'flex';
+      card.style.opacity = '1';
+    } else {
+      card.style.display = 'none';
+      card.style.opacity = '0';
+    }
+  });
+}
+
+// 3. Shopping Cart Logic & Drawer
+let cart = [
+  { id: 1, name: 'Gói Standard Boutique Suite (1 Tháng)', price: 18000000, desc: '1 tháng • Giường y tế đa chiều & Điều dưỡng 24/7' },
+  { id: 2, name: 'Điều Dưỡng Ca 8 Tiếng Chuẩn', price: 650000, desc: 'Phục hồi chức năng & Vật lý trị liệu tại nhà' }
+];
+
+function toggleCartDrawer(open) {
+  const drawer = document.getElementById('cart-drawer');
+  const backdrop = document.getElementById('cart-drawer-backdrop');
+  if (open) {
+    backdrop.classList.remove('hidden');
+    setTimeout(() => { backdrop.classList.remove('opacity-0'); }, 10);
+    drawer.classList.remove('translate-x-full');
+  } else {
+    backdrop.classList.add('opacity-0');
+    drawer.classList.add('translate-x-full');
+    setTimeout(() => { backdrop.classList.add('hidden'); }, 300);
+  }
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('cart-toast');
+  const toastMsg = document.getElementById('toast-message');
+  toastMsg.textContent = msg;
+  toast.classList.remove('hidden', 'translate-y-2', 'opacity-0');
+  setTimeout(() => {
+    toast.classList.add('translate-y-2', 'opacity-0');
+    setTimeout(() => toast.classList.add('hidden'), 300);
+  }, 2500);
+}
+
+function renderCart() {
+  const container = document.getElementById('cart-items-container');
+  container.innerHTML = '';
+  cart.forEach((item, index) => {
+    const el = document.createElement('div');
+    el.className = "p-4 rounded-2xl bg-white border border-stone-200 shadow-xs space-y-2 relative group hover:border-[#0D7C66] transition-all";
+    el.innerHTML = `
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-emerald-50 text-[#0D7C66] uppercase">Dịch vụ Y Tế</span>
+          <h4 class="font-serif font-bold text-stone-900 text-sm mt-1">${item.name}</h4>
+          <p class="text-xs text-stone-500">${item.desc}</p>
+        </div>
+        <span class="font-serif font-bold text-[#0D7C66] text-sm whitespace-nowrap">${item.price.toLocaleString('vi-VN')}đ</span>
+      </div>
+      <div class="flex items-center justify-between text-xs text-stone-500 pt-1 border-t border-stone-100">
+        <span class="text-[11px] text-emerald-800 font-semibold flex items-center gap-1">
+          <span class="material-symbols-outlined text-xs">verified</span> Tiêu chuẩn GoCare 5 Sao
+        </span>
+        <button onclick="removeCartItem(${index})" class="text-rose-600 hover:underline text-[11px] font-semibold">Xóa</button>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+  calculateCartTotal();
+}
+
+function addToCart(name, price, desc) {
+  cart.push({ id: Date.now(), name, price, desc });
+  renderCart();
+  showToast(`Đã thêm: ${name}`);
+  toggleCartDrawer(true);
+}
+
+function removeCartItem(idx) {
+  cart.splice(idx, 1);
+  renderCart();
+}
+
+function calculateCartTotal() {
+  const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+  const checkInsurance = document.getElementById('check-insurance')?.checked;
+  const checkSenior = document.getElementById('check-senior')?.checked;
+
+  let discount = 0;
+  if (checkInsurance) discount += subtotal * 0.10;
+  if (checkSenior && subtotal > 1000000) discount += 500000;
+
+  const grandTotal = Math.max(0, subtotal - discount);
+
+  document.getElementById('cart-subtotal').textContent = `${subtotal.toLocaleString('vi-VN')}đ`;
+  document.getElementById('cart-discount').textContent = `-${discount.toLocaleString('vi-VN')}đ`;
+  document.getElementById('cart-grandtotal').textContent = `${grandTotal.toLocaleString('vi-VN')}đ`;
+  document.getElementById('cart-floating-total').textContent = `${grandTotal.toLocaleString('vi-VN')}đ`;
+
+  const countBadge = document.getElementById('cart-counter-badge');
+  const navBadge = document.getElementById('nav-cart-badge');
+  if (countBadge) countBadge.textContent = cart.length;
+  if (navBadge) navBadge.textContent = cart.length;
+}
+
+// 4. Booking Shift & Live Calculator Logic
+let currentShiftPrice = 650000;
+let currentShiftName = 'Ca 8 Giờ Chuẩn';
+let currentService = 'Phục hồi chức năng & Vật lý trị liệu';
+let currentBookingType = 'Tại Nhà (Home Care)';
+
+function setBookingType(type, btn) {
+  const homeBtn = document.getElementById('tab-homecare');
+  const clinicBtn = document.getElementById('tab-inclinic');
+  if (type === 'home') {
+    currentBookingType = 'Tại Nhà (Home Care)';
+    homeBtn.className = "px-5 py-2.5 rounded-xl bg-[#0D7C66] text-white font-bold text-xs shadow-sm flex items-center gap-1.5";
+    clinicBtn.className = "px-5 py-2.5 rounded-xl text-stone-700 hover:text-[#0D7C66] font-bold text-xs transition-all flex items-center gap-1.5";
+  } else {
+    currentBookingType = 'Tại Viện / Bán Trú';
+    clinicBtn.className = "px-5 py-2.5 rounded-xl bg-[#0D7C66] text-white font-bold text-xs shadow-sm flex items-center gap-1.5";
+    homeBtn.className = "px-5 py-2.5 rounded-xl text-stone-700 hover:text-[#0D7C66] font-bold text-xs transition-all flex items-center gap-1.5";
+  }
+  document.getElementById('summary-booking-type').textContent = currentBookingType;
+}
+
+function selectShift(el, price, name) {
+  document.querySelectorAll('.shift-card').forEach(card => {
+    card.className = "shift-card p-3.5 rounded-2xl border border-stone-200 text-center cursor-pointer hover:border-[#0D7C66] bg-white block transition-all";
+    const title = card.querySelector('div:first-of-type');
+    if (title) title.className = "text-sm font-bold text-stone-900";
+  });
+  el.className = "shift-card p-3.5 rounded-2xl border-2 border-[#0D7C66] bg-emerald-50/80 text-center cursor-pointer block transition-all";
+  const activeTitle = el.querySelector('div:first-of-type');
+  if (activeTitle) activeTitle.className = "text-sm font-bold text-[#0D7C66]";
+
+  currentShiftPrice = price;
+  currentShiftName = name;
+  updateBookingCalculation();
+}
+
+function updateBookingCalculation() {
+  const selectedRadio = document.querySelector('input[name="nursing_service"]:checked');
+  if (selectedRadio) {
+    currentService = selectedRadio.value;
+    document.getElementById('summary-service-name').textContent = currentService;
+  }
+  document.getElementById('summary-shift-name').textContent = currentShiftName;
+
+  // Smooth Price Number Counter Animation
+  const display = document.getElementById('booking-price-display');
+  display.style.transform = "scale(1.15)";
+  display.style.color = "#E09F3E";
+  setTimeout(() => {
+    display.textContent = currentShiftPrice.toLocaleString('vi-VN');
+    display.style.transform = "scale(1)";
+    display.style.color = "#0D7C66";
+  }, 150);
+}
+
+function addBookingToCart() {
+  addToCart(`Đặt Lịch: ${currentService} (${currentShiftName})`, currentShiftPrice, `${currentBookingType} • 100% ĐD CCHN`);
+}
+
+function handleBookingSubmit(e) {
+  e.preventDefault();
+  const feedback = document.getElementById('booking-feedback');
+  feedback.classList.remove('hidden');
+  feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  showToast('Đã xác nhận đặt lịch khám!');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderCart();
+});

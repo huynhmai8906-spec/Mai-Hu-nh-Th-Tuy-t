@@ -1,0 +1,5 @@
+{
+  "name": "GoCare - Nghỉ Dưỡng Lão Khoa & Y Tế 5 Sao",
+  "description": "Nền tảng y tế và nghỉ dưỡng lão khoa cao cấp GoCare với cổng bệnh nhân, bệnh án điện tử, đặt lịch và nhà thuốc trực tuyến.",
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

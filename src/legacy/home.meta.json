@@ -1,0 +1,18 @@
+{
+  "bodyClass": "bg-[#FAFAF7] font-sans text-on-surface antialiased selection:bg-primary-container selection:text-white relative",
+  "fns": [
+    "setTransformationView",
+    "filterPackages",
+    "toggleCartDrawer",
+    "showToast",
+    "renderCart",
+    "addToCart",
+    "removeCartItem",
+    "calculateCartTotal",
+    "setBookingType",
+    "selectShift",
+    "updateBookingCalculation",
+    "addBookingToCart",
+    "handleBookingSubmit"
+  ]
+}

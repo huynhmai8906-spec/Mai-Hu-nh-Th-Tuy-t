@@ -1,0 +1,68 @@
+
+  (function() {
+    // Face Pain Scale Handler
+    const painButtons = document.querySelectorAll('.pain-btn');
+    const painDisplay = document.getElementById('pain-score-display');
+    const triageStatus = document.getElementById('triage-status');
+    const urgentChest = document.getElementById('urgent-chest-pain');
+    const urgentStroke = document.getElementById('urgent-stroke-sign');
+    const btnSubmit = document.getElementById('btn-submit-triage');
+
+    let currentPain = 3;
+
+    function updateTriage() {
+      const isRedAlert = (urgentChest && urgentChest.checked) || (urgentStroke && urgentStroke.checked) || currentPain >= 8;
+      if (isRedAlert) {
+        triageStatus.innerHTML = '<span class="material-symbols-outlined text-base text-error">emergency</span> <span class="text-error font-bold">CẢNH BÁO ĐỎ CẤP CỨU TỨC THÌ (Bác sĩ & Xe cấp cứu nhận tin ngay)</span>';
+        if (btnSubmit) {
+          btnSubmit.classList.remove('bg-primary', 'hover:bg-primary-dark');
+          btnSubmit.classList.add('bg-error', 'hover:bg-red-700');
+          btnSubmit.innerHTML = '<span class="material-symbols-outlined text-xl animate-bounce">warning</span> PHÁT TÍN HIỆU CẤP CỨU KHẨN CẤP ĐỎ';
+        }
+      } else if (currentPain >= 5) {
+        triageStatus.innerHTML = '<span class="material-symbols-outlined text-base text-secondary">schedule</span> <span class="text-secondary font-semibold">Cần Theo Dõi & Điều Dưỡng Thăm Khám Trong 30 Phút</span>';
+        if (btnSubmit) {
+          btnSubmit.classList.remove('bg-error', 'hover:bg-red-700');
+          btnSubmit.classList.add('bg-primary', 'hover:bg-primary-dark');
+          btnSubmit.innerHTML = '<span class="material-symbols-outlined text-xl">send</span> GỬI KHAI BÁO Y TẾ ĐẾN BÁC SĨ TRỰC';
+        }
+      } else {
+        triageStatus.innerHTML = '<span class="material-symbols-outlined text-base text-emerald-mint">check_circle</span> <span class="text-emerald-mint font-semibold">Mức Độ Bình Thường - Theo Dõi Thường Quy Trong Ca</span>';
+        if (btnSubmit) {
+          btnSubmit.classList.remove('bg-error', 'hover:bg-red-700');
+          btnSubmit.classList.add('bg-primary', 'hover:bg-primary-dark');
+          btnSubmit.innerHTML = '<span class="material-symbols-outlined text-xl">send</span> GỬI KHAI BÁO Y TẾ ĐẾN BÁC SĨ TRỰC';
+        }
+      }
+    }
+
+    painButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        painButtons.forEach(b => {
+          b.classList.remove('bg-primary', 'text-on-primary', 'shadow-md', 'shadow-primary/20');
+          b.classList.add('bg-surface-container-lowest', 'text-on-surface');
+        });
+        btn.classList.remove('bg-surface-container-lowest', 'text-on-surface');
+        btn.classList.add('bg-primary', 'text-on-primary', 'shadow-md', 'shadow-primary/20');
+        currentPain = parseInt(btn.dataset.level, 10);
+        if (painDisplay) {
+          painDisplay.textContent = btn.dataset.label;
+        }
+        updateTriage();
+      });
+    });
+
+    if (urgentChest) urgentChest.addEventListener('change', updateTriage);
+    if (urgentStroke) urgentStroke.addEventListener('change', updateTriage);
+
+    if (btnSubmit) {
+      btnSubmit.addEventListener('click', () => {
+        const isRed = (urgentChest && urgentChest.checked) || (urgentStroke && urgentStroke.checked) || currentPain >= 8;
+        if (isRed) {
+          alert('HỆ THỐNG ĐÃ KÍCH HOẠT QUY TRÌNH CODE RED!\nThông tin bệnh nhân BN. Trần Hoài Phương đã được gửi trực tiếp đến Bác sĩ CKI Trần Trọng Khang và Đội Cấp Cứu Lưu Động GoCare.');
+        } else {
+          alert('Phiếu khai báo sức khỏe đã được gửi thành công đến Điều dưỡng Hoàng Bích Ngọc và lưu trữ vào bệnh án điện tử.');
+        }
+      });
+    }
+  })();
