@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { LegacyPage } from "@/components/LegacyPage";
 import { supabase } from "@/integrations/supabase/client";
+import { DB_OFFLINE_MESSAGE, isSupabaseConfigured, realUserId } from "@/lib/db-status";
 import html from "@/legacy/home.html.txt?raw";
 import script from "@/legacy/home.js.txt?raw";
 import meta from "@/legacy/home.meta.json";
@@ -63,30 +64,36 @@ function Home() {
           const btn = root.querySelector("#btn-checkout");
           const handler = async (e: Event) => {
             e.preventDefault();
-            const { data } = await supabase.auth.getSession();
-            if (!data.session) {
-              toast.warning("Vui lòng đăng nhập Cổng Bệnh Nhân để đặt cọc.");
-              navigate({ to: "/portal" });
-              return;
-            }
             const items = api["getCart"]?.() ?? [];
             if (!items.length) {
               toast.info("Giỏ dịch vụ đang trống. Vui lòng chọn dịch vụ.");
               return;
             }
+            // Guests can order too; signed-in patients get the order linked to their account
+            const { data } = await supabase.auth.getSession();
             const subtotal = items.reduce((s: number, i: any) => s + i.price, 0);
             const total = Math.max(0, subtotal - 500000);
-            const { error } = await supabase
-              .from("service_orders")
-              .insert({ user_id: data.session.user.id, items, total });
+            const { error } = await supabase.from("service_orders").insert({
+              user_id: realUserId(data.session?.user.id),
+              customer_email: data.session?.user.email ?? null,
+              items,
+              total,
+            });
             if (error) {
               toast.error("Không thể tạo đơn: " + error.message);
               return;
             }
             api["toggleCartDrawer"]?.(false);
-            toast.success(
-              "Đã tạo đơn dịch vụ qua GoCare Resort v2 & Dispatch API! CSKH sẽ liên hệ trong 15 phút.",
-            );
+            if (!isSupabaseConfigured) {
+              toast.warning(DB_OFFLINE_MESSAGE, { duration: 8000 });
+              return;
+            }
+            toast.success("Đã tạo đơn dịch vụ! Bộ phận CSKH GoCare sẽ liên hệ trong 15 phút.");
+            if (!data.session) {
+              toast.info("Đăng nhập Cổng Bệnh Nhân để theo dõi đơn của bạn.", {
+                action: { label: "Đăng nhập", onClick: () => navigate({ to: "/portal" }) },
+              });
+            }
           };
           btn?.addEventListener("click", handler);
           return () => btn?.removeEventListener("click", handler);

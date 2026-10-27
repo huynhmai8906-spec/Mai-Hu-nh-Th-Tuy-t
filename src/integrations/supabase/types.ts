@@ -8,6 +8,60 @@ export type Database = {
   };
   public: {
     Tables: {
+      nursing_bookings: {
+        Row: {
+          address: string;
+          created_at: string;
+          id: string;
+          medical_note: string | null;
+          nurse_cchn: string | null;
+          nurse_name: string | null;
+          patient_name: string;
+          phone: string;
+          price: number;
+          scheduled_at: string | null;
+          service_id: string | null;
+          service_name: string;
+          status: string;
+          urgency: string;
+          user_id: string | null;
+        };
+        Insert: {
+          address: string;
+          created_at?: string;
+          id?: string;
+          medical_note?: string | null;
+          nurse_cchn?: string | null;
+          nurse_name?: string | null;
+          patient_name: string;
+          phone: string;
+          price?: number;
+          scheduled_at?: string | null;
+          service_id?: string | null;
+          service_name: string;
+          status?: string;
+          urgency?: string;
+          user_id?: string | null;
+        };
+        Update: {
+          address?: string;
+          created_at?: string;
+          id?: string;
+          medical_note?: string | null;
+          nurse_cchn?: string | null;
+          nurse_name?: string | null;
+          patient_name?: string;
+          phone?: string;
+          price?: number;
+          scheduled_at?: string | null;
+          service_id?: string | null;
+          service_name?: string;
+          status?: string;
+          urgency?: string;
+          user_id?: string | null;
+        };
+        Relationships: [];
+      };
       patient_profiles: {
         Row: {
           birth_year: number | null;
@@ -50,27 +104,30 @@ export type Database = {
       service_orders: {
         Row: {
           created_at: string;
+          customer_email: string | null;
           id: string;
           items: Json;
           status: string;
           total: number;
-          user_id: string;
+          user_id: string | null;
         };
         Insert: {
           created_at?: string;
+          customer_email?: string | null;
           id?: string;
           items?: Json;
           status?: string;
           total?: number;
-          user_id: string;
+          user_id?: string | null;
         };
         Update: {
           created_at?: string;
+          customer_email?: string | null;
           id?: string;
           items?: Json;
           status?: string;
           total?: number;
-          user_id?: string;
+          user_id?: string | null;
         };
         Relationships: [];
       };

@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DoctorsRouteImport } from './routes/doctors'
+import { Route as NursingRouteImport } from './routes/nursing'
 import { Route as PharmacyRouteImport } from './routes/pharmacy'
 import { Route as PortalRouteImport } from './routes/portal'
 
@@ -22,6 +24,16 @@ const IndexRoute = IndexRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoctorsRoute = DoctorsRouteImport.update({
+  id: '/doctors',
+  path: '/doctors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NursingRoute = NursingRouteImport.update({
+  id: '/nursing',
+  path: '/nursing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PharmacyRoute = PharmacyRouteImport.update({
@@ -38,12 +50,16 @@ const PortalRoute = PortalRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/doctors': typeof DoctorsRoute
+  '/nursing': typeof NursingRoute
   '/pharmacy': typeof PharmacyRoute
   '/portal': typeof PortalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/doctors': typeof DoctorsRoute
+  '/nursing': typeof NursingRoute
   '/pharmacy': typeof PharmacyRoute
   '/portal': typeof PortalRoute
 }
@@ -51,20 +67,32 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/doctors': typeof DoctorsRoute
+  '/nursing': typeof NursingRoute
   '/pharmacy': typeof PharmacyRoute
   '/portal': typeof PortalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/pharmacy' | '/portal'
+  fullPaths:
+    '/' | '/dashboard' | '/doctors' | '/nursing' | '/pharmacy' | '/portal'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/pharmacy' | '/portal'
-  id: '__root__' | '/' | '/dashboard' | '/pharmacy' | '/portal'
+  to: '/' | '/dashboard' | '/doctors' | '/nursing' | '/pharmacy' | '/portal'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/doctors'
+    | '/nursing'
+    | '/pharmacy'
+    | '/portal'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  DoctorsRoute: typeof DoctorsRoute
+  NursingRoute: typeof NursingRoute
   PharmacyRoute: typeof PharmacyRoute
   PortalRoute: typeof PortalRoute
 }
@@ -83,6 +111,20 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doctors': {
+      id: '/doctors'
+      path: '/doctors'
+      fullPath: '/doctors'
+      preLoaderRoute: typeof DoctorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nursing': {
+      id: '/nursing'
+      path: '/nursing'
+      fullPath: '/nursing'
+      preLoaderRoute: typeof NursingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pharmacy': {
@@ -105,6 +147,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  DoctorsRoute: DoctorsRoute,
+  NursingRoute: NursingRoute,
   PharmacyRoute: PharmacyRoute,
   PortalRoute: PortalRoute,
 }

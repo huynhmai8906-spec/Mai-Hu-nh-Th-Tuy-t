@@ -3,6 +3,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { HeaderNav } from "@/components/HeaderNav";
 import { dispatchApi, GOCARE_KEYS } from "@/lib/gocare-apis";
+import { supabase } from "@/integrations/supabase/client";
+import { DB_OFFLINE_MESSAGE, isSupabaseConfigured, realUserId } from "@/lib/db-status";
 
 export const Route = createFileRoute("/nursing")({
   head: () => ({
@@ -341,15 +343,35 @@ function NursingPage() {
     setIsSubmitting(true);
 
     try {
+      const scheduledAt =
+        urgency === "immediate"
+          ? "Có mặt ngay sau 15 - 30 phút"
+          : `${scheduledTime} ngày ${scheduledDate}`;
+
+      // Save to the shared database so the management site (quanlyweb) sees it
+      const { data: auth } = await supabase.auth.getSession();
+      const { error } = await supabase.from("nursing_bookings").insert({
+        user_id: realUserId(auth.session?.user.id),
+        patient_name: patientName,
+        phone: patientPhone,
+        address: patientAddress,
+        service_id: selectedService?.id ?? null,
+        service_name: selectedService?.name || "Điều Dưỡng CCHN 24/7",
+        price: selectedService?.price ?? 0,
+        nurse_name: selectedNurse?.name ?? null,
+        nurse_cchn: selectedNurse?.cchn ?? null,
+        urgency,
+        scheduled_at: scheduledAt,
+        medical_note: medicalCondition || null,
+      });
+      if (error) throw error;
+
       // Connect to GoCare Dispatch API
       const result = await dispatchApi.dispatchHomeNurse({
         patientName,
         serviceType: selectedService?.name || "Điều Dưỡng CCHN 24/7",
         address: patientAddress,
-        scheduledTime:
-          urgency === "immediate"
-            ? "Có mặt ngay sau 15 - 30 phút"
-            : `${scheduledTime} ngày ${scheduledDate}`,
+        scheduledTime: scheduledAt,
       });
 
       const assignedNurseName = selectedNurse?.name || result.assignedNurse.name;
@@ -359,6 +381,7 @@ function NursingPage() {
         `ĐIỀU PHỐI ĐIỀU DƯỠNG THÀNH CÔNG!\nMã lệnh: ${result.serviceDispatchId}\nĐiều dưỡng: ${assignedNurseName} (Số CCHN: ${assignedLicense})\nThời gian: ${result.scheduledTime}`,
         { duration: 8000 },
       );
+      if (!isSupabaseConfigured) toast.warning(DB_OFFLINE_MESSAGE, { duration: 8000 });
 
       setIsModalOpen(false);
     } catch {
