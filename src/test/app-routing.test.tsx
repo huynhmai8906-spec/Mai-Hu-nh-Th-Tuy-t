@@ -11,7 +11,18 @@ describe("App routing", () => {
     const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
 
     const matches = router.matchRoutes("/");
+    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+  });
 
+  it("matches a page for /doctors", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    const matches = router.matchRoutes("/doctors");
+    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+  });
+
+  it("matches a page for /nursing", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    const matches = router.matchRoutes("/nursing");
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
 });

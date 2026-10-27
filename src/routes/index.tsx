@@ -27,43 +27,71 @@ export const Route = createFileRoute("/")({
 function Home() {
   const navigate = useNavigate();
   return (
-    <LegacyPage
-      scope="home"
-      bodyClass={meta.bodyClass}
-      html={html}
-      script={script}
-      fns={meta.fns}
-      extraExports={["getCart: () => cart"]}
-      onReady={(root, api) => {
-        const btn = root.querySelector("#btn-checkout");
-        const handler = async (e: Event) => {
-          e.preventDefault();
-          const { data } = await supabase.auth.getSession();
-          if (!data.session) {
-            toast.warning("Vui lòng đăng nhập Cổng Bệnh Nhân để đặt cọc.");
-            navigate({ to: "/portal" });
-            return;
-          }
-          const items = api["getCart"]?.() ?? [];
-          if (!items.length) {
-            toast.info("Giỏ dịch vụ đang trống. Vui lòng chọn dịch vụ.");
-            return;
-          }
-          const subtotal = items.reduce((s: number, i: any) => s + i.price, 0);
-          const total = Math.max(0, subtotal - 500000);
-          const { error } = await supabase
-            .from("service_orders")
-            .insert({ user_id: data.session.user.id, items, total });
-          if (error) {
-            toast.error("Không thể tạo đơn: " + error.message);
-            return;
-          }
-          api["toggleCartDrawer"]?.(false);
-          toast.success("Đã tạo đơn đặt cọc! CSKH GoCare sẽ liên hệ ký hợp đồng trong 15 phút.");
-        };
-        btn?.addEventListener("click", handler);
-        return () => btn?.removeEventListener("click", handler);
-      }}
-    />
+    <div className="relative">
+      {/* Floating 4-API Connectivity Pill */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <button
+          onClick={() => (window as any).openGoCareApisModal?.("overview")}
+          className="group flex items-center gap-2.5 px-4 py-2.5 bg-jade-dark text-on-primary rounded-full shadow-2xl hover:bg-primary transition-all duration-200 border-2 border-emerald-mint/50 cursor-pointer hover:scale-105"
+        >
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-mint opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-mint"></span>
+          </span>
+          <div className="flex flex-col text-left">
+            <span className="text-[10px] uppercase tracking-wider text-emerald-mint font-bold leading-none">
+              4 API ĐÃ LIÊN KẾT
+            </span>
+            <span className="text-xs font-semibold leading-tight mt-0.5">
+              HL7 • Resort v2 • Cleveland • Dispatch
+            </span>
+          </div>
+          <span className="material-symbols-outlined text-lg text-primary-fixed group-hover:rotate-45 transition-transform">
+            tune
+          </span>
+        </button>
+      </div>
+
+      <LegacyPage
+        scope="home"
+        bodyClass={meta.bodyClass}
+        html={html}
+        script={script}
+        fns={meta.fns}
+        extraExports={["getCart: () => cart"]}
+        onReady={(root, api) => {
+          const btn = root.querySelector("#btn-checkout");
+          const handler = async (e: Event) => {
+            e.preventDefault();
+            const { data } = await supabase.auth.getSession();
+            if (!data.session) {
+              toast.warning("Vui lòng đăng nhập Cổng Bệnh Nhân để đặt cọc.");
+              navigate({ to: "/portal" });
+              return;
+            }
+            const items = api["getCart"]?.() ?? [];
+            if (!items.length) {
+              toast.info("Giỏ dịch vụ đang trống. Vui lòng chọn dịch vụ.");
+              return;
+            }
+            const subtotal = items.reduce((s: number, i: any) => s + i.price, 0);
+            const total = Math.max(0, subtotal - 500000);
+            const { error } = await supabase
+              .from("service_orders")
+              .insert({ user_id: data.session.user.id, items, total });
+            if (error) {
+              toast.error("Không thể tạo đơn: " + error.message);
+              return;
+            }
+            api["toggleCartDrawer"]?.(false);
+            toast.success(
+              "Đã tạo đơn dịch vụ qua GoCare Resort v2 & Dispatch API! CSKH sẽ liên hệ trong 15 phút.",
+            );
+          };
+          btn?.addEventListener("click", handler);
+          return () => btn?.removeEventListener("click", handler);
+        }}
+      />
+    </div>
   );
 }

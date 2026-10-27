@@ -10,7 +10,7 @@
 <!-- Top Global Header in Auth View -->
 <header class="w-full max-w-6xl mx-auto flex items-center justify-between py-2 border-b border-outline-variant/30">
 <div class="flex items-center gap-3">
-<img alt="GoCare Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XMF7QZIQ2KhG51tqdfR2RjXraoyxSxhivdntWu7eL7EepHT3zYO11jDiDnSKpm7KLFZJTOa87CgRzZYPdUhYXfVdpcOeRWiMnOzZb2ALCUqiyypVSzR4u4c5xsrfUpDFOKvMsv2L17mr0PuYbDncOhEV2-HmED3FZCLHUpFF5UTTqit-hH6waiUl5zfgUPe8pKMhlpCwgQlbvCUet-9envOBcsRt-LA_WoxNZ97aCY1X-oLVZU6f_A7r5c"/>
+<img alt="GoCare Logo" class="h-10 w-auto object-contain" src="/logo.png"/>
 <div class="hidden sm:flex flex-col">
 <span class="font-headline text-[11px] uppercase tracking-wider text-primary font-bold">Cổng Y Tế &amp; Dưỡng Lão 5 Sao</span>
 <span class="text-[10px] text-on-surface-variant font-medium">Bảo chứng JCI Hoa Kỳ &amp; Cấp phép BYT</span>
@@ -244,7 +244,7 @@
 <!-- Top Navigation Header -->
 <header class="sticky top-0 z-40 bg-surface/95 backdrop-blur-xl border-b border-outline-variant/30 px-4 sm:px-8 py-3.5 flex items-center justify-between">
 <div class="flex items-center gap-4">
-<img alt="GoCare Logo" class="h-9 w-auto object-contain cursor-pointer" src="https://lh3.googleusercontent.com/aida/AEtjO1XMF7QZIQ2KhG51tqdfR2RjXraoyxSxhivdntWu7eL7EepHT3zYO11jDiDnSKpm7KLFZJTOa87CgRzZYPdUhYXfVdpcOeRWiMnOzZb2ALCUqiyypVSzR4u4c5xsrfUpDFOKvMsv2L17mr0PuYbDncOhEV2-HmED3FZCLHUpFF5UTTqit-hH6waiUl5zfgUPe8pKMhlpCwgQlbvCUet-9envOBcsRt-LA_WoxNZ97aCY1X-oLVZU6f_A7r5c"/>
+<img alt="GoCare Logo" class="h-9 w-auto object-contain cursor-pointer" src="/logo.png"/>
 <div class="hidden md:flex items-center gap-1.5 px-3 py-1 bg-surface-container-low rounded-full text-xs font-semibold text-primary border border-outline-variant/30">
 <span class="w-2 h-2 rounded-full bg-emerald-mint animate-pulse"></span>
 <span>Phiên Làm Việc Bảo Mật Đang Hoạt Động (PID: GC-88294-VN)</span>
@@ -475,7 +475,7 @@
 <!-- KẾT NỐI BÁC SĨ CHỦ TRÌ CA & XUẤT Y BẠ QUỐC TẾ -->
 <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 <div class="lg:col-span-7 bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant/30 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-<img alt="ThS. BS CKI Trần Trọng Khang" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover shadow-md border-2 border-emerald-mint/40 flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1VU6_vG9zoSAika59c8gNb0Cl92H6jIPqSMUt0dKZYH5uepw61F9LyImZCLqn5ng1WApzog3NoSVbRhclw1s3T0WGQb2a-F0fubvT4VMN5k0rVxkgLWDwfi14Oidr9-MjD3-diuSiC1b_X19j8_lDVqDjMinAk3qBELkALTI-GFHU5pDcCA1zUUh9-FZxOyuHj45wgCSTMYOq71x9-eff3xsm685JhQtFmCwJLIJsQEMVhpicfQKaOuT17q"/>
+<img alt="ThS. BS CKI Trần Trọng Khang" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover shadow-md border-2 border-emerald-mint/40 flex-shrink-0" src="/assets/team/dr-khang.jpg"/>
 <div class="space-y-1.5 flex-1">
 <div class="flex items-center gap-2">
 <span class="px-2 py-0.5 bg-primary/10 text-primary font-headline text-[10px] font-bold uppercase rounded">Bác Sĩ Chủ Trì Ca</span>

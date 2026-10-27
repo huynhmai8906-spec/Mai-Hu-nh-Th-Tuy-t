@@ -100,7 +100,7 @@
 </div>
 </aside>
 <!-- HEADER -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-[#FAFAF7]/95 backdrop-blur-xl border-b border-emerald-900/10 shadow-[0_4px_20px_rgba(13,124,102,0.05)]"><div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6"><div class="flex items-center flex-shrink-0"><a class="flex items-center group" href="#"><img alt="GoCare - Boutique Healthcare" class="h-12 w-auto object-contain transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1XJOgucWvbcERUO5yYCajecZZ9jkdlmOlLEAQN8U9yMVBX3dFKbaGA-zBYgp1441z7lDKfMKATsQS5sCILT2GtXGoNupFrIvUhyXCYLsdteJmGMefx08uz5P4--ivyEPrUP49WhsHo92Bt5gKkvS9FMtoZCNUsCTKXUre56fCoyE4PJ4ZY4vDrXccbACG-EuGbjfouv9QAn6hvi0Tfs2NpV12NEJKFZd_5Qwqf5Z6U6nIRjjqHhhFVloF5P"/></a></div><nav class="hidden lg:flex items-center justify-center gap-6 xl:gap-8 mx-auto flex-1"><a class="relative inline-flex items-center justify-center py-2 px-1 text-sm font-bold text-primary tracking-wide transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2.5px] after:bg-[#0D7C66] after:w-full" data-nav="1" href="/">Trang chủ</a><a class="relative inline-flex items-center justify-center py-2 px-1 text-sm font-semibold text-on-surface hover:text-[#0D7C66] tracking-wide transition-colors" href="#chuyen-khoa">Chuyên khoa &amp; Bác sĩ</a><a class="relative inline-flex items-center justify-center py-2 px-1 text-sm font-semibold text-on-surface hover:text-[#0D7C66] tracking-wide transition-colors gap-1.5" href="#dat-lich-nhanh"><span class="">Điều dưỡng CCHN 24/7</span><span class="px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-[#E09F3E] text-slate-900 text-[10px] font-extrabold tracking-wider leading-none shadow-xs">JCI</span></a><a class="relative inline-flex items-center justify-center py-2 px-1 text-sm font-semibold text-on-surface hover:text-[#0D7C66] tracking-wide transition-colors" data-nav="1" href="/pharmacy">Wellness &amp; Nhà thuốc</a><a class="relative inline-flex items-center justify-center py-2 px-1 text-sm font-semibold text-on-surface hover:text-[#0D7C66] tracking-wide transition-colors" data-nav="1" href="/portal">Cổng bệnh nhân</a></nav><div class="flex items-center gap-3.5 lg:gap-4 flex-shrink-0"><button class="relative p-2 rounded-full hover:bg-emerald-50 text-emerald-950 transition-colors" onclick="toggleCartDrawer(true)" title="Xem giỏ hàng y tế"><span class="material-symbols-outlined text-2xl text-[#0D7C66]">shopping_bag</span><span class="absolute top-0 right-0 w-4 h-4 rounded-full bg-[#E09F3E] text-stone-950 text-[10px] font-black flex items-center justify-center" id="nav-cart-badge">2</span></button><a class="hidden md:flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-white text-primary border border-emerald-800/20 hover:border-emerald-700/50 hover:bg-emerald-50/50 transition-all shadow-xs" href="tel:19006868"><span class="material-symbols-outlined text-lg text-[#0D7C66] animate-pulse">call</span><div class="flex flex-col text-left"><span class="text-[9px] uppercase font-bold leading-none tracking-wider text-[#E09F3E]">Hotline 24/7</span><span class="text-xs font-bold leading-tight text-emerald-950">1900 6868</span></div></a><a class="inline-flex items-center justify-center h-10 px-5 rounded-full bg-gradient-to-r from-[#00614f] via-[#0D7C66] to-[#10B981] hover:brightness-110 text-white text-xs font-bold tracking-wider uppercase transition-all shadow-md shadow-emerald-800/25 active:scale-[0.98] gap-1.5" href="#dat-lich-nhanh"><span class="material-symbols-outlined text-base">calendar_month</span><span class="">ĐẶT LỊCH KHÁM</span></a></div></div></header>
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#FAFAF7]/95 backdrop-blur-xl border-b border-emerald-900/10 shadow-[0_4px_20px_rgba(13,124,102,0.05)]"><div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6"><div class="flex items-center flex-shrink-0"><a class="flex items-center group" href="/"><img alt="GoCare - An tâm chăm sóc, kết nối tức thì" class="h-12 w-auto object-contain transition-transform group-hover:scale-105" src="/logo.png"/></a></div><nav class="hidden lg:flex items-center justify-center gap-6 xl:gap-8 mx-auto flex-1"><a class="relative inline-flex items-center justify-center py-2 px-1 text-sm font-bold text-primary tracking-wide transition-colors after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2.5px] after:bg-[#0D7C66] after:w-full" data-nav="1" href="/">Trang chủ</a><a class="relative inline-flex items-center justify-center py-2 px-1 text-sm font-semibold text-on-surface hover:text-[#0D7C66] tracking-wide transition-colors" data-nav="1" href="/doctors">Chuyên khoa &amp; Bác sĩ</a><a class="relative inline-flex items-center justify-center py-2 px-1 text-sm font-semibold text-on-surface hover:text-[#0D7C66] tracking-wide transition-colors gap-1.5" data-nav="1" href="/nursing"><span class="">Điều dưỡng CCHN 24/7</span><span class="px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-[#E09F3E] text-slate-900 text-[10px] font-extrabold tracking-wider leading-none shadow-xs">JCI</span></a><a class="relative inline-flex items-center justify-center py-2 px-1 text-sm font-semibold text-on-surface hover:text-[#0D7C66] tracking-wide transition-colors" data-nav="1" href="/pharmacy">Wellness &amp; Nhà thuốc</a><a class="relative inline-flex items-center justify-center py-2 px-1 text-sm font-semibold text-on-surface hover:text-[#0D7C66] tracking-wide transition-colors" data-nav="1" href="/portal">Cổng bệnh nhân</a></nav><div class="flex items-center gap-3.5 lg:gap-4 flex-shrink-0"><button class="relative p-2 rounded-full hover:bg-emerald-50 text-emerald-950 transition-colors" onclick="toggleCartDrawer(true)" title="Xem giỏ hàng y tế"><span class="material-symbols-outlined text-2xl text-[#0D7C66]">shopping_bag</span><span class="absolute top-0 right-0 w-4 h-4 rounded-full bg-[#E09F3E] text-stone-950 text-[10px] font-black flex items-center justify-center" id="nav-cart-badge">2</span></button><a class="hidden md:flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-white text-primary border border-emerald-800/20 hover:border-emerald-700/50 hover:bg-emerald-50/50 transition-all shadow-xs" href="tel:19006868"><span class="material-symbols-outlined text-lg text-[#0D7C66] animate-pulse">call</span><div class="flex flex-col text-left"><span class="text-[9px] uppercase font-bold leading-none tracking-wider text-[#E09F3E]">Hotline 24/7</span><span class="text-xs font-bold leading-tight text-emerald-950">1900 6868</span></div></a><a class="inline-flex items-center justify-center h-10 px-5 rounded-full bg-gradient-to-r from-[#00614f] via-[#0D7C66] to-[#10B981] hover:brightness-110 text-white text-xs font-bold tracking-wider uppercase transition-all shadow-md shadow-emerald-800/25 active:scale-[0.98] gap-1.5" href="/doctors"><span class="material-symbols-outlined text-base">calendar_month</span><span class="">ĐẶT LỊCH BÁC SĨ</span></a></div></div></header>
 <main class="w-full pt-20">
 <!-- 1. HERO SECTION CINEMATIC WITH FLOATING MEDICAL BADGES -->
 <section class="relative w-full -mt-20 overflow-hidden bg-[#10241E]">
@@ -375,7 +375,7 @@
 <div class="group rounded-2xl bg-white overflow-hidden border border-emerald-900/10 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between tilt-card">
 <div>
 <div class="relative h-64 overflow-hidden">
-<img alt="Điều dưỡng tận tâm chăm sóc người cao tuổi" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AEtjO1Vh0KD1LcJNF0-HgUe-FTCtCHuE61W7uUyAY7DJSSNmUBccCadTrx-upXq0s3V0OQbV-_5voeIh-UfIcTDFh5m_gttDX9YIJzqowyCGIHnYC2RuHBYAPEGWISxPec7niPXxzO8Yh76ind-hxlH101F-yWa9oI1TeTEFWX_o9S1gC-oV3lduMQ-Hqae_UTwId14u-zfmuRrlVqbzc3KgCAxapzp6wxZ0w-bW_vsnPfnjrkVD4TSjDZnuHeKP"/>
+<img alt="Điều dưỡng tận tâm chăm sóc người cao tuổi" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" src="/assets/team/nurse-lan.jpg"/>
 <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-emerald-900 text-xs font-bold flex items-center gap-1.5 shadow-sm">
 <span class="material-symbols-outlined text-[#0D7C66] text-sm">favorite</span>
 <span class="">Tận Tâm Như Con Gái Ruột</span>
@@ -398,7 +398,7 @@
 <div class="group rounded-2xl bg-white overflow-hidden border border-emerald-900/10 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between tilt-card">
 <div>
 <div class="relative h-64 overflow-hidden">
-<img alt="Bác sĩ lão khoa hội chẩn ấm áp" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AEtjO1VU6_vG9zoSAika59c8gNb0Cl92H6jIPqSMUt0dKZYH5uepw61F9LyImZCLqn5ng1WApzog3NoSVbRhclw1s3T0WGQb2a-F0fubvT4VMN5k0rVxkgLWDwfi14Oidr9-MjD3-diuSiC1b_X19j8_lDVqDjMinAk3qBELkALTI-GFHU5pDcCA1zUUh9-FZxOyuHj45wgCSTMYOq71x9-eff3xsm685JhQtFmCwJLIJsQEMVhpicfQKaOuT17q"/>
+<img alt="Bác sĩ lão khoa hội chẩn ấm áp" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" src="/assets/team/dr-thanh.jpg"/>
 <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-emerald-900 text-xs font-bold flex items-center gap-1.5 shadow-sm">
 <span class="material-symbols-outlined text-amber-500 text-sm">stethoscope</span>
 <span class="">Hội Chẩn Tận Tình Chu Đáo</span>
@@ -445,27 +445,51 @@
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 <div class="flex items-center gap-4 p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100/80 hover:bg-emerald-50 transition-colors">
-<img alt="PGS. TS. BS Nguyễn Văn Vinh" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1VU6_vG9zoSAika59c8gNb0Cl92H6jIPqSMUt0dKZYH5uepw61F9LyImZCLqn5ng1WApzog3NoSVbRhclw1s3T0WGQb2a-F0fubvT4VMN5k0rVxkgLWDwfi14Oidr9-MjD3-diuSiC1b_X19j8_lDVqDjMinAk3qBELkALTI-GFHU5pDcCA1zUUh9-FZxOyuHj45wgCSTMYOq71x9-eff3xsm685JhQtFmCwJLIJsQEMVhpicfQKaOuT17q"/>
+<img alt="PGS. TS. BS Nguyễn Văn Vinh" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0" src="/assets/team/dr-vinh.jpg"/>
 <div>
 <div class="font-bold text-stone-900 text-sm">PGS. TS. BS Nguyễn Văn Vinh</div>
 <p class="text-xs text-[#0D7C66] font-bold">Cố Vấn Lão Khoa &amp; Tim Mạch</p>
-<p class="text-[11px] text-stone-500 mt-0.5">35+ năm công tác tại BV Chợ Rẫy &amp; ĐH Y Dược</p>
+<p class="text-[11px] text-stone-500 mt-0.5">36 năm công tác tại BV Chợ Rẫy &amp; ĐH Y Dược</p>
 </div>
 </div>
 <div class="flex items-center gap-4 p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100/80 hover:bg-emerald-50 transition-colors">
-<img alt="BS. CKI Trần Trọng Khang" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1WtCoEmelxVLNoJoBy4RwyEe8RQnxn5h0iHrJDpodAxK8vKtZVQDRIQCUmhaCYeM0nCJhMpZsqX9ucMmRdZ9TP9n6WwBNGIYduk0B-GJi58rDhwvwgg3uBb8-4ySnXo4GW3MBIPre1q-i3cLwMO2_cHMxCfrWRjGJjKLIYJrPvFO3mOsvbMh28sKWlEaNBaKkYkApxjD0ALktmj6cle9wMoHyCpVBEG-_0dKrAXZ_VjkIxiiHYCOBE16Crn"/>
+<img alt="BS. CKI Trần Trọng Khang" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0" src="/assets/team/dr-khang.jpg"/>
 <div>
-<div class="font-bold text-stone-900 text-sm">BS. CKI Trần Trọng Khang</div>
-<p class="text-xs text-[#0D7C66] font-bold">Trưởng Khoa Phục Hồi Thần Kinh</p>
-<p class="text-[11px] text-stone-500 mt-0.5">Chuyên gia Phục hồi sau tai biến &amp; Đột quỵ</p>
+<div class="font-bold text-stone-900 text-sm">ThS. BS CKI Trần Trọng Khang</div>
+<p class="text-xs text-[#0D7C66] font-bold">Trưởng Khối Lão Khoa &amp; Can Thiệp</p>
+<p class="text-[11px] text-stone-500 mt-0.5">Nguyên Phó Khoa Tim Mạch BV ĐHYD TP.HCM</p>
 </div>
 </div>
 <div class="flex items-center gap-4 p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100/80 hover:bg-emerald-50 transition-colors">
-<img alt="ThS. ĐD Đỗ Thu Hà" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Vh0KD1LcJNF0-HgUe-FTCtCHuE61W7uUyAY7DJSSNmUBccCadTrx-upXq0s3V0OQbV-_5voeIh-UfIcTDFh5m_gttDX9YIJzqowyCGIHnYC2RuHBYAPEGWISxPec7niPXxzO8Yh76ind-hxlH101F-yWa9oI1TeTEFWX_o9S1gC-oV3lduMQ-Hqae_UTwId14u-zfmuRrlVqbzc3KgCAxapzp6wxZ0w-bW_vsnPfnjrkVD4TSjDZnuHeKP"/>
+<img alt="TS. BS Lê Thị Minh Nguyệt" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0" src="/assets/team/dr-nguyet.jpg"/>
 <div>
-<div class="font-bold text-stone-900 text-sm">ThS. ĐD Đỗ Thu Hà</div>
-<p class="text-xs text-[#0D7C66] font-bold">Giám Đốc Khối Điều Dưỡng</p>
-<p class="text-[11px] text-stone-500 mt-0.5">20+ năm đào tạo chuẩn điều dưỡng JCI Quốc tế</p>
+<div class="font-bold text-stone-900 text-sm">TS. BS Lê Thị Minh Nguyệt</div>
+<p class="text-xs text-[#0D7C66] font-bold">Trưởng Khoa Nội Tiết &amp; Đái Tháo Đường</p>
+<p class="text-[11px] text-stone-500 mt-0.5">Bác Sĩ Nội Trú BV Cán Bộ Thống Nhất</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100/80 hover:bg-emerald-50 transition-colors">
+<img alt="ĐD CKI Hoàng Bích Ngọc" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0" src="/assets/team/nurse-ngoc.jpg"/>
+<div>
+<div class="font-bold text-stone-900 text-sm">ĐD CKI. Hoàng Bích Ngọc</div>
+<p class="text-xs text-[#0D7C66] font-bold">Giám Đốc Khối Điều Dưỡng ICU</p>
+<p class="text-[11px] text-stone-500 mt-0.5">14 năm Hồi Sức Cấp Cứu BV Chợ Rẫy (CCHN BYT)</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100/80 hover:bg-emerald-50 transition-colors">
+<img alt="ĐD Trần Minh Quang" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0" src="/assets/team/nurse-quang.jpg"/>
+<div>
+<div class="font-bold text-stone-900 text-sm">ĐD. Trần Minh Quang</div>
+<p class="text-xs text-[#0D7C66] font-bold">Trưởng Kíp Phục Hồi Vận Động</p>
+<p class="text-[11px] text-stone-500 mt-0.5">10 năm BV Chấn Thương Chỉnh Hình TP.HCM</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100/80 hover:bg-emerald-50 transition-colors">
+<img alt="ĐD Nguyễn Thị Thu Hà" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0" src="/assets/team/nurse-ha.jpg"/>
+<div>
+<div class="font-bold text-stone-900 text-sm">ĐD. Nguyễn Thị Thu Hà</div>
+<p class="text-xs text-[#0D7C66] font-bold">Chuyên Gia Vết Thương &amp; Loét Tì Đè</p>
+<p class="text-[11px] text-stone-500 mt-0.5">12 năm Khoa Lão Học BV Thống Nhất</p>
 </div>
 </div>
 </div>
@@ -835,9 +859,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-emerald-800/40">
 <div class="lg:col-span-4 space-y-4">
 <div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#0D7C66] to-[#10B981] text-white flex items-center justify-center font-serif font-bold text-2xl shadow-md">
-  G
-</div>
+<img src="/logo.png" alt="GoCare" class="h-10 w-auto object-contain bg-white rounded-xl p-1" />
 <div class="flex flex-col">
 <span class="font-serif font-bold text-2xl text-white tracking-tight">GOCARE</span>
 <span class="text-xs text-[#FFD580] font-semibold tracking-wide">Viện Dưỡng Lão &amp; Y Khoa 5 Sao</span>
