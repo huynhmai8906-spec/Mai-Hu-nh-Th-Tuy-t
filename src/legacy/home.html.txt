@@ -895,13 +895,14 @@
 </ul>
 </div>
 <div class="lg:col-span-2 space-y-3">
-<h4 class="font-serif text-white font-bold text-base tracking-wide uppercase border-b border-emerald-800 pb-2">Chuyên Khoa &amp; Dịch Vụ</h4>
+<h4 class="font-serif text-white font-bold text-base tracking-wide uppercase border-b border-emerald-800 pb-2">Chuyên Khoa &amp; Dược Phẩm</h4>
 <ul class="space-y-2 text-xs text-emerald-200/80 font-medium">
-<li class=""><a class="hover:text-white transition-colors" href="#chuyen-hoa">Hành trình Chuyển hóa Cảm xúc</a></li>
-<li class=""><a class="hover:text-white transition-colors" href="#chuyen-khoa">Phục hồi chức năng &amp; Đột quỵ</a></li>
-<li class=""><a class="hover:text-white transition-colors" href="#chuyen-khoa">Chăm sóc Sa sút trí tuệ</a></li>
-<li class=""><a class="hover:text-white transition-colors" href="#dat-lich-nhanh">Điều dưỡng Home Care 24/7</a></li>
-<li class=""><a class="hover:text-white transition-colors" href="#bang-gia-dich-vu">Bán trú &amp; Nghỉ dưỡng cao cấp</a></li>
+<li class=""><a class="hover:text-white transition-colors" href="/pharmacy">Wellness &amp; Nhà thuốc</a></li>
+<li class=""><a class="hover:text-white text-teal-300 font-bold transition-colors flex items-center gap-1" href="https://www.nhathuocankhang.com/bo-xuong-khop?gad_source=1&gad_campaignid=24093045004&gbraid=0AAAAA_Tw4OKNOJqRMJfMgBtMMtFkoQWEr&gclid=CjwKCAjwl4HXBhAjEiwAHlpWhATmUDRoOJCRO8_Gkl5jTg4PxIpe4xzJi2a5JYf_kSfNlpMwGln-mxoC6TkQAvD_BwE" target="_blank" rel="noopener noreferrer">Bổ Xương Khớp An Khang ↗</a></li>
+<li class=""><a class="hover:text-white text-blue-300 font-bold transition-colors flex items-center gap-1" href="https://nhathuoclongchau.com.vn/" target="_blank" rel="noopener noreferrer">Nhà Thuốc Long Châu ↗</a></li>
+<li class=""><a class="hover:text-white transition-colors" href="/doctors">Chuyên khoa &amp; Bác sĩ</a></li>
+<li class=""><a class="hover:text-white transition-colors" href="/nursing">Điều dưỡng Home Care 24/7</a></li>
+<li class=""><a class="hover:text-white transition-colors" href="/portal">Cổng bệnh nhân &amp; EHR</a></li>
 </ul>
 </div>
 <div class="lg:col-span-3 space-y-3">

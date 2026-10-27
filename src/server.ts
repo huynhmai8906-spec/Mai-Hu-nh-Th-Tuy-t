@@ -117,6 +117,39 @@ export default {
         }
       }
 
+      // GoCare Gemini AI Medical & Pharmacist consultation endpoint
+      if (url.pathname === "/api/ai/chat" || url.pathname === "/api/ai/consultation") {
+        if (request.method === "POST") {
+          const body = await request.json().catch(() => ({}));
+          const { askGeminiConsultation } = await import("./lib/gemini");
+          const reply = await askGeminiConsultation({
+            message: body.message || "",
+            history: body.history || [],
+            contextType: body.contextType || "general",
+            imageB64: body.imageB64,
+            imageMimeType: body.imageMimeType,
+          });
+          return Response.json({
+            success: true,
+            reply,
+            links: {
+              longChau: "https://nhathuoclongchau.com.vn/",
+              anKhangBoXuongKhop:
+                "https://www.nhathuocankhang.com/bo-xuong-khop?gad_source=1&gad_campaignid=24093045004&gbraid=0AAAAA_Tw4OKNOJqRMJfMgBtMMtFkoQWEr&gclid=CjwKCAjwl4HXBhAjEiwAHlpWhATmUDRoOJCRO8_Gkl5jTg4PxIpe4xzJi2a5JYf_kSfNlpMwGln-mxoC6TkQAvD_BwE",
+            },
+          });
+        }
+        return Response.json({
+          status: "ready",
+          pharmacistAI: "GoCare Senior Pharmacist & Medical Advisor",
+          partnerLinks: {
+            longChau: "https://nhathuoclongchau.com.vn/",
+            anKhangBoXuongKhop:
+              "https://www.nhathuocankhang.com/bo-xuong-khop?gad_source=1&gad_campaignid=24093045004&gbraid=0AAAAA_Tw4OKNOJqRMJfMgBtMMtFkoQWEr&gclid=CjwKCAjwl4HXBhAjEiwAHlpWhATmUDRoOJCRO8_Gkl5jTg4PxIpe4xzJi2a5JYf_kSfNlpMwGln-mxoC6TkQAvD_BwE",
+          },
+        });
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

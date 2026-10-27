@@ -115,7 +115,30 @@ export function HeaderNav({ activePath }: HeaderNavProps) {
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
+          {/* Partner Badges */}
+          <div className="hidden 2xl:flex items-center gap-1.5 p-1 bg-white rounded-full border border-emerald-200/80 shadow-xs text-xs">
+            <a
+              href="https://www.nhathuocankhang.com/bo-xuong-khop?gad_source=1&gad_campaignid=24093045004&gbraid=0AAAAA_Tw4OKNOJqRMJfMgBtMMtFkoQWEr&gclid=CjwKCAjwl4HXBhAjEiwAHlpWhATmUDRoOJCRO8_Gkl5jTg4PxIpe4xzJi2a5JYf_kSfNlpMwGln-mxoC6TkQAvD_BwE"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2.5 py-1 rounded-full text-[11px] font-bold text-teal-800 hover:bg-teal-50 transition-colors flex items-center gap-1"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
+              An Khang Bổ Khớp
+            </a>
+            <span className="text-stone-300">|</span>
+            <a
+              href="https://nhathuoclongchau.com.vn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2.5 py-1 rounded-full text-[11px] font-bold text-blue-800 hover:bg-blue-50 transition-colors flex items-center gap-1"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+              FPT Long Châu
+            </a>
+          </div>
+
           <a
             className="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-primary border border-emerald-800/20 hover:border-emerald-700/50 hover:bg-emerald-50/50 transition-all shadow-xs"
             href="tel:19006868"
