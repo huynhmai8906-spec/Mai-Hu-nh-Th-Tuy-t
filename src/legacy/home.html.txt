@@ -90,12 +90,43 @@
 <span class="text-xl text-[#0D7C66]" id="cart-grandtotal">18.150.000đ</span>
 </div>
 </div>
+<!-- BẮT BUỘC: Văn Bản Pháp Lý & Thỏa Thuận Đặt Hàng -->
+<div id="legal-agreement-box" class="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-300 text-stone-800 space-y-2.5 transition-all">
+  <div class="flex items-start gap-2.5">
+    <input 
+      type="checkbox" 
+      id="terms-agreement-checkbox" 
+      class="mt-1 h-4 w-4 rounded text-[#0D7C66] focus:ring-[#0D7C66] border-stone-300 cursor-pointer accent-[#0D7C66]"
+      onclick="handleTermsCheckboxClick()"
+      onchange="handleLegalAgreementChange(this.checked)"
+    />
+    <label for="terms-agreement-checkbox" class="text-xs leading-relaxed text-stone-700 cursor-pointer select-none">
+      <span class="font-bold text-amber-950 text-[11px] uppercase tracking-wide flex items-center gap-1 mb-0.5">
+        <span class="material-symbols-outlined text-xs text-amber-700">gavel</span>
+        Văn bản pháp lý bắt buộc:
+      </span>
+      Tôi xác nhận đã đọc, hiểu rõ và <a href="/terms" onclick="openLegalTermsModal(event)" class="font-bold text-[#0D7C66] underline hover:text-[#00614f] cursor-pointer">đồng ý với Văn bản Pháp lý &amp; Điều khoản dịch vụ y tế</a> của GoCare trước khi tiến hành đặt hàng.
+    </label>
+  </div>
+  <button 
+    type="button" 
+    onclick="openLegalTermsModal(event)" 
+    class="w-full py-2 px-3 rounded-xl bg-white hover:bg-emerald-50 text-[#0D7C66] border border-[#0D7C66] font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer active:scale-95"
+  >
+    <span class="material-symbols-outlined text-base">description</span>
+    <span>Bấm Vào Đây Để Xem Văn Bản Pháp Lý &amp; Đồng Ý</span>
+  </button>
+  <p id="legal-warning-hint" class="text-[11px] text-amber-900 font-medium flex items-center gap-1 pl-1">
+    <span class="material-symbols-outlined text-[14px] text-amber-700">lock</span>
+    Bắt buộc bấm đồng ý điều khoản pháp lý để mở khóa nút đặt hàng.
+  </p>
+</div>
 <div class="space-y-2">
-<a class="w-full h-12 rounded-xl bg-gradient-to-r from-[#00614f] via-[#0D7C66] to-[#10B981] hover:brightness-110 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-all" href="#" id="btn-checkout">
-<span class="material-symbols-outlined text-lg">verified</span>
-<span class="">Tiến Hành Đặt Cọc &amp; Ký Hợp Đồng</span>
+<a class="w-full h-12 rounded-xl bg-gradient-to-r from-[#00614f] via-[#0D7C66] to-[#10B981] text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-all opacity-60 cursor-not-allowed select-none" href="#" id="btn-checkout" aria-disabled="true">
+<span class="material-symbols-outlined text-lg" id="btn-checkout-icon">lock</span>
+<span id="btn-checkout-text">Tiến Hành Đặt Cọc &amp; Ký Hợp Đồng</span>
 </a>
-<p class="text-[11px] text-center text-stone-500">Hỗ trợ trả góp 0% lãi suất qua thẻ Visa/Mastercard đến 12 tháng</p>
+<p class="text-[11px] text-center text-stone-500">Hỗ trợ trả góp 0% lãi suất qua thẻ Visa/Mastercard đến 12 tháng • Hợp đồng có giá trị pháp lý</p>
 </div>
 </div>
 </aside>
@@ -784,6 +815,19 @@
 </div>
 <p class="text-[11px] text-stone-500 italic">*Đã bao gồm găng tay vô khuẩn, máy đo sinh hiệu và phí di chuyển.</p>
 </div>
+<div class="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-300 text-stone-800 space-y-2 shadow-xs">
+  <div class="flex items-start gap-2.5 text-xs text-stone-700">
+    <input type="checkbox" id="live-booking-terms-checkbox" required class="mt-0.5 h-4 w-4 rounded text-[#0D7C66] focus:ring-[#0D7C66] border-stone-300 cursor-pointer accent-[#0D7C66]" />
+    <label for="live-booking-terms-checkbox" class="leading-relaxed cursor-pointer select-none">
+      <strong class="text-amber-950 font-bold block mb-0.5">Xác nhận pháp lý bắt buộc:</strong>
+      Tôi xác nhận đã đọc, hiểu rõ và <a href="/terms" onclick="openLegalTermsModal(event)" class="font-bold text-[#0D7C66] underline hover:text-[#00614f] cursor-pointer">đồng ý với Văn bản Pháp lý &amp; Điều khoản y tế</a> của GoCare trước khi đặt lịch.
+    </label>
+  </div>
+  <button type="button" onclick="openLegalTermsModal(event)" class="w-full py-1.5 px-3 rounded-xl bg-white hover:bg-emerald-50 text-[#0D7C66] border border-[#0D7C66] font-bold text-xs flex items-center justify-center gap-1 transition-all cursor-pointer">
+    <span class="material-symbols-outlined text-sm">visibility</span>
+    <span>Bấm Vào Đây Để Xem Văn Bản Pháp Lý &amp; Đồng Ý</span>
+  </button>
+</div>
 <div class="space-y-2">
 <button class="w-full h-12 px-6 rounded-xl bg-gradient-to-r from-[#00614f] via-[#0D7C66] to-[#10B981] hover:brightness-110 text-white font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 active:scale-[0.98]" type="submit">
 <span class="material-symbols-outlined text-lg">calendar_month</span>
@@ -924,9 +968,9 @@
 <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-emerald-300/80">
 <p class="">© 2025 GOCARE. Toàn bộ bản quyền thuộc Hệ Thống Viện Dưỡng Lão &amp; Y Khoa GoCare Việt Nam.</p>
 <div class="flex items-center gap-6">
-<a class="hover:text-white transition-colors" href="#">Chính sách bảo mật EHR</a>
-<a class="hover:text-white transition-colors" href="#">Quy chế y tế</a>
-<a class="hover:text-white transition-colors" href="#">Điều khoản sử dụng</a>
+<a href="/terms" class="hover:text-white transition-colors cursor-pointer" onclick="openLegalTermsModal(event)">Chính sách bảo mật EHR</a>
+<a href="/terms" class="hover:text-white transition-colors cursor-pointer" onclick="openLegalTermsModal(event)">Quy chế giao dịch</a>
+<a href="/terms" class="hover:text-white transition-colors cursor-pointer underline font-bold" onclick="openLegalTermsModal(event)">Văn bản pháp lý &amp; Điều khoản dịch vụ</a>
 </div>
 </div>
 </div>

@@ -204,14 +204,105 @@ function addBookingToCart() {
   addToCart(`Đặt Lịch: ${currentService} (${currentShiftName})`, currentShiftPrice, `${currentBookingType} • 100% ĐD CCHN`);
 }
 
+function handleTermsCheckboxClick() {
+  const checkbox = document.getElementById('terms-agreement-checkbox');
+  // When user clicks the checkbox to agree, immediately display the full legal terms modal
+  if (checkbox && checkbox.checked) {
+    if (typeof window.showLegalTermsModal === 'function') {
+      window.showLegalTermsModal();
+    } else {
+      window.dispatchEvent(new CustomEvent('gocare:open-legal-terms'));
+    }
+  }
+}
+
+function handleLegalAgreementChange(checked) {
+  const btn = document.getElementById('btn-checkout');
+  const icon = document.getElementById('btn-checkout-icon');
+  const box = document.getElementById('legal-agreement-box');
+  const hint = document.getElementById('legal-warning-hint');
+
+  if (checked) {
+    if (btn) {
+      btn.classList.remove('opacity-60', 'cursor-not-allowed');
+      btn.classList.add('hover:brightness-110', 'cursor-pointer');
+      btn.setAttribute('aria-disabled', 'false');
+    }
+    if (icon) icon.textContent = 'verified';
+    if (box) {
+      box.classList.remove('border-rose-400', 'bg-rose-50');
+      box.classList.add('border-emerald-300', 'bg-emerald-50/80');
+    }
+    if (hint) {
+      hint.innerHTML = '<span class="material-symbols-outlined text-[14px] text-emerald-700">check_circle</span> <span class="text-emerald-800 font-semibold">Đã xác nhận đồng ý điều khoản. Nút đặt hàng đã được kích hoạt.</span>';
+    }
+  } else {
+    if (btn) {
+      btn.classList.add('opacity-60', 'cursor-not-allowed');
+      btn.classList.remove('hover:brightness-110', 'cursor-pointer');
+      btn.setAttribute('aria-disabled', 'true');
+    }
+    if (icon) icon.textContent = 'lock';
+    if (box) {
+      box.classList.remove('border-emerald-300', 'bg-emerald-50/80');
+      box.classList.add('border-amber-300', 'bg-amber-50/90');
+    }
+    if (hint) {
+      hint.innerHTML = '<span class="material-symbols-outlined text-[14px] text-amber-700">lock</span> Bắt buộc bấm đồng ý điều khoản pháp lý để mở khóa nút đặt hàng.';
+    }
+  }
+}
+
+function openLegalTermsModal(e) {
+  if (e) {
+    if (e.preventDefault && (!e.target || e.target.tagName !== 'INPUT')) {
+      e.preventDefault();
+    }
+    if (e.stopPropagation) e.stopPropagation();
+  }
+  if (typeof window.showLegalTermsModal === 'function') {
+    window.showLegalTermsModal();
+  } else {
+    window.dispatchEvent(new CustomEvent('gocare:open-legal-terms'));
+  }
+  return false;
+}
+window.openLegalTermsModal = openLegalTermsModal;
+
+// Listen for global terms-agreed event from LegalTermsModal
+window.addEventListener('gocare:terms-agreed', () => {
+  const checkbox = document.getElementById('terms-agreement-checkbox');
+  if (checkbox) {
+    checkbox.checked = true;
+    handleLegalAgreementChange(true);
+  }
+  const liveCb = document.getElementById('live-booking-terms-checkbox');
+  if (liveCb) {
+    liveCb.checked = true;
+  }
+});
+
 function handleBookingSubmit(e) {
   e.preventDefault();
+  const termsCheckbox = document.getElementById('live-booking-terms-checkbox');
+  if (termsCheckbox && !termsCheckbox.checked) {
+    showToast('⚠️ Vui lòng tích chọn đồng ý Điều khoản y tế trước khi đặt lịch!');
+    termsCheckbox.focus();
+    termsCheckbox.parentElement?.classList.add('ring-2', 'ring-rose-500', 'p-1', 'rounded');
+    setTimeout(() => {
+      termsCheckbox.parentElement?.classList.remove('ring-2', 'ring-rose-500', 'p-1', 'rounded');
+    }, 3000);
+    return;
+  }
   const feedback = document.getElementById('booking-feedback');
-  feedback.classList.remove('hidden');
-  feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  if (feedback) {
+    feedback.classList.remove('hidden');
+    feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
   showToast('Đã xác nhận đặt lịch khám!');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   renderCart();
 });
+

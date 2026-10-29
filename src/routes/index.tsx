@@ -64,6 +64,26 @@ function Home() {
           const btn = root.querySelector("#btn-checkout");
           const handler = async (e: Event) => {
             e.preventDefault();
+
+            // Legal compliance check: customer MUST agree to legal terms before placing an order
+            const termsCheckbox = root.querySelector<HTMLInputElement>("#terms-agreement-checkbox");
+            if (!termsCheckbox || !termsCheckbox.checked) {
+              toast.error(
+                "Yêu cầu pháp lý: Quý khách vui lòng đọc và bấm chọn đồng ý với Điều khoản dịch vụ trước khi đặt hàng!",
+                { duration: 5000 },
+              );
+              const legalBox = root.querySelector("#legal-agreement-box");
+              if (legalBox) {
+                legalBox.classList.add("ring-2", "ring-rose-500", "bg-rose-50");
+                legalBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                setTimeout(() => {
+                  legalBox.classList.remove("ring-2", "ring-rose-500", "bg-rose-50");
+                }, 3500);
+              }
+              termsCheckbox?.focus();
+              return;
+            }
+
             const items = api["getCart"]?.() ?? [];
             if (!items.length) {
               toast.info("Giỏ dịch vụ đang trống. Vui lòng chọn dịch vụ.");

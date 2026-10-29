@@ -53,3 +53,143 @@
   if (searchInput) {
     searchInput.addEventListener('input', filterProducts);
   }
+
+  // Pharmacy Quick Order & Legal Agreement Flow
+  function openLegalTermsModal(e) {
+    if (e) {
+      if (e.preventDefault && (!e.target || e.target.tagName !== 'INPUT')) {
+        e.preventDefault();
+      }
+      if (e.stopPropagation) e.stopPropagation();
+    }
+    if (typeof window.showLegalTermsModal === 'function') {
+      window.showLegalTermsModal();
+    } else {
+      window.dispatchEvent(new CustomEvent('gocare:open-legal-terms'));
+    }
+    return false;
+  }
+  window.openLegalTermsModal = openLegalTermsModal;
+
+  function openPharmacyOrderModal(itemName, itemPrice) {
+    const modal = document.getElementById('pharmacy-order-modal');
+    const nameEl = document.getElementById('order-item-name');
+    const priceEl = document.getElementById('order-item-price');
+    const termsCheckbox = document.getElementById('pharmacy-terms-checkbox');
+
+    if (nameEl && itemName) nameEl.textContent = itemName;
+    if (priceEl && itemPrice) priceEl.textContent = itemPrice;
+
+    if (termsCheckbox) {
+      termsCheckbox.checked = false;
+      handlePharmacyTermsChange(false);
+    }
+
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  }
+
+  function closePharmacyOrderModal() {
+    const modal = document.getElementById('pharmacy-order-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  }
+
+  function handlePharmacyTermsCheckboxClick() {
+    const checkbox = document.getElementById('pharmacy-terms-checkbox');
+    if (checkbox && checkbox.checked) {
+      if (typeof window.showLegalTermsModal === 'function') {
+        window.showLegalTermsModal();
+      } else {
+        window.dispatchEvent(new CustomEvent('gocare:open-legal-terms'));
+      }
+    }
+  }
+
+  function handlePharmacyTermsChange(checked) {
+    const btn = document.getElementById('btn-pharmacy-confirm-order');
+    const icon = document.getElementById('pharmacy-confirm-icon');
+    const box = document.getElementById('pharmacy-legal-box');
+    const hint = document.getElementById('pharmacy-legal-hint');
+
+    if (checked) {
+      if (btn) {
+        btn.disabled = false;
+        btn.classList.remove('opacity-60', 'cursor-not-allowed');
+        btn.classList.add('hover:bg-[#00614f]', 'cursor-pointer');
+      }
+      if (icon) icon.textContent = 'check_circle';
+      if (box) {
+        box.classList.remove('border-rose-400', 'bg-rose-50');
+        box.classList.add('border-emerald-300', 'bg-emerald-50/80');
+      }
+      if (hint) {
+        hint.innerHTML = '<span class="material-symbols-outlined text-[14px] text-emerald-700">check_circle</span> <span class="text-emerald-800 font-semibold">Đã xác nhận đồng ý điều khoản. Quý khách có thể bấm đặt hàng ngay.</span>';
+      }
+    } else {
+      if (btn) {
+        btn.disabled = true;
+        btn.classList.add('opacity-60', 'cursor-not-allowed');
+        btn.classList.remove('hover:bg-[#00614f]', 'cursor-pointer');
+      }
+      if (icon) icon.textContent = 'lock';
+      if (box) {
+        box.classList.remove('border-emerald-300', 'bg-emerald-50/80');
+        box.classList.add('border-amber-300', 'bg-amber-50/90');
+      }
+      if (hint) {
+        hint.innerHTML = '<span class="material-symbols-outlined text-[14px] text-amber-700">lock</span> Bắt buộc bấm đồng ý điều khoản pháp lý để mở khóa nút đặt hàng.';
+      }
+    }
+  }
+
+  function handlePharmacyOrderSubmit(e) {
+    e.preventDefault();
+    const termsCheckbox = document.getElementById('pharmacy-terms-checkbox');
+    const box = document.getElementById('pharmacy-legal-box');
+
+    if (!termsCheckbox || !termsCheckbox.checked) {
+      if (box) {
+        box.classList.add('ring-2', 'ring-rose-500', 'bg-rose-50');
+        setTimeout(() => {
+          box.classList.remove('ring-2', 'ring-rose-500', 'bg-rose-50');
+        }, 3500);
+      }
+      termsCheckbox?.focus();
+      if (typeof window.showNotification === 'function') {
+        window.showNotification('⚠️ Yêu cầu pháp lý: Quý khách phải bấm đồng ý Điều khoản trước khi đặt hàng!');
+      } else {
+        alert('⚠️ Yêu cầu pháp lý: Quý khách phải bấm đồng ý với Điều khoản dịch vụ y tế trước khi đặt hàng!');
+      }
+      return;
+    }
+
+    const itemName = document.getElementById('order-item-name')?.textContent || 'Sản phẩm y tế';
+    const patientName = document.getElementById('order-patient-name')?.value || 'Quý khách';
+
+    closePharmacyOrderModal();
+    alert(`✓ ĐÃ TIẾP NHẬN ĐƠN HÀNG THÀNH CÔNG!\n- Đơn hàng: ${itemName}\n- Khách hàng: ${patientName}\n\nDược sĩ Lão khoa GoCare sẽ gọi điện rà soát đơn thuốc và điều phối giao hỏa tốc trong 1-2 giờ.`);
+  }
+
+  // Wire product card and package buttons to open order modal
+  document.querySelectorAll('.product-card button, .w-\\[320px\\] button').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const card = button.closest('.product-card') || button.closest('.w-\\[320px\\]');
+      if (card) {
+        const title = card.querySelector('h3, h4')?.textContent?.trim() || 'Thuốc & Gói Chăm Sóc GoCare';
+        const price = card.querySelector('.text-lg.font-bold, .text-lg')?.textContent?.trim() || '325.000đ';
+        openPharmacyOrderModal(title, price);
+      }
+    });
+  });
+
+  // Listen for global terms agreed event
+  window.addEventListener('gocare:terms-agreed', () => {
+    const checkbox = document.getElementById('pharmacy-terms-checkbox');
+    if (checkbox) {
+      checkbox.checked = true;
+      handlePharmacyTermsChange(true);
+    }
+  });

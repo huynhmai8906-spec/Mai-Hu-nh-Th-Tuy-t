@@ -13,6 +13,8 @@
     "selectShift",
     "updateBookingCalculation",
     "addBookingToCart",
-    "handleBookingSubmit"
+    "handleBookingSubmit",
+    "handleTermsCheckboxClick",
+    "handleLegalAgreementChange"
   ]
 }

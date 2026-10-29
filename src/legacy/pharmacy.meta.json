@@ -1,1 +1,10 @@
-{ "bodyClass": "bg-surface font-body-md text-on-surface antialiased", "fns": [] }
+{
+  "bodyClass": "bg-surface font-body-md text-on-surface antialiased",
+  "fns": [
+    "openPharmacyOrderModal",
+    "closePharmacyOrderModal",
+    "handlePharmacyTermsCheckboxClick",
+    "handlePharmacyTermsChange",
+    "handlePharmacyOrderSubmit"
+  ]
+}

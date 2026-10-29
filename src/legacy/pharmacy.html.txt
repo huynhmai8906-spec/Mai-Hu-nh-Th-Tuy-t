@@ -98,6 +98,25 @@ Trực tiếp kết nối cùng <strong>Nhà Thuốc An Khang</strong> và <stro
 </a>
 </div>
 </div>
+<!-- Băng thông báo pháp lý thương mại điện tử dược phẩm -->
+<div class="mb-6 p-4 rounded-2xl bg-amber-50/90 border border-amber-300 text-stone-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 border border-amber-200">
+      <span class="material-symbols-outlined text-2xl">gavel</span>
+    </div>
+    <div class="text-xs leading-relaxed">
+      <span class="font-bold text-amber-950 uppercase tracking-wide flex items-center gap-1.5">
+        <span>Quy chế giao dịch dược phẩm &amp; Đặt hàng y tế:</span>
+        <span class="px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 text-[10px] font-extrabold">Bắt buộc</span>
+      </span>
+      <span class="text-stone-700">Theo Nghị định 52/2013/NĐ-CP và Luật Khám bệnh, chữa bệnh, Quý khách bắt buộc phải đọc và bấm xác nhận đồng ý với Điều khoản pháp lý trước khi đặt hàng hoặc đăng ký gói dịch vụ.</span>
+    </div>
+  </div>
+  <a href="/terms" onclick="openLegalTermsModal(event)" class="shrink-0 px-4 py-2 rounded-xl bg-white border border-amber-300 hover:bg-amber-100/70 text-amber-950 font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer">
+    <span class="material-symbols-outlined text-base text-amber-700">description</span>
+    <span>Xem Văn Bản Pháp Lý</span>
+  </a>
+</div>
 <!-- Category Filter Pills -->
 <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar" id="categoryFilterContainer">
 <button class="category-btn active px-4 py-2 rounded-full text-xs font-bold bg-[#0D7C66] text-white transition-all whitespace-nowrap shadow-sm" data-cat="all">Tất Cả Danh Mục</button>
@@ -717,6 +736,93 @@ Trực tiếp kết nối cùng <strong>Nhà Thuốc An Khang</strong> và <stro
 </div>
 </div>
 </section>
+</div>
+</main>
+
+<!-- PHARMACY QUICK ORDER & LEGAL CONFIRMATION MODAL -->
+<div id="pharmacy-order-modal" class="fixed inset-0 z-[95] hidden bg-stone-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+  <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-emerald-900/10 overflow-hidden animate-in zoom-in-95 duration-200" onclick="event.stopPropagation()">
+    <div class="p-5 bg-gradient-to-r from-[#00614f] via-[#0D7C66] to-[#10B981] text-white flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-2xl">shopping_cart_checkout</span>
+        <div>
+          <h3 class="text-base font-bold font-serif" id="order-modal-title">Đặt Mua Thuốc &amp; Gói Y Tế</h3>
+          <p class="text-xs text-emerald-100">Giao hỏa tốc 1-2 giờ • Đồng bộ EHR</p>
+        </div>
+      </div>
+      <button type="button" onclick="closePharmacyOrderModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+    <form id="pharmacy-order-form" onsubmit="handlePharmacyOrderSubmit(event)" class="p-6 space-y-4">
+      <div class="p-3 rounded-xl bg-emerald-50/80 border border-emerald-200 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] text-emerald-800 uppercase font-bold block">Sản phẩm / Gói đã chọn:</span>
+          <strong class="text-sm text-stone-900 block" id="order-item-name">Amlor 5mg (Amlodipine)</strong>
+        </div>
+        <span class="text-base font-serif font-bold text-[#0D7C66]" id="order-item-price">325.000đ</span>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1">Họ Tên Người Nhận / Bệnh Nhân:</label>
+        <input type="text" id="order-patient-name" required value="BN. Trần Hoài Phương" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-xs focus:ring-2 focus:ring-[#0D7C66] focus:outline-none" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1">Số Điện Thoại Nhận Hàng (SMS xác nhận):</label>
+        <input type="tel" id="order-patient-phone" required value="0908 688 829" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-xs focus:ring-2 focus:ring-[#0D7C66] focus:outline-none" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1">Địa Chỉ Giao Thuốc Hỏa Tốc (1-2h):</label>
+        <input type="text" id="order-patient-address" required value="Biệt thự Palm Garden, Thảo Điền, TP. Thủ Đức" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-xs focus:ring-2 focus:ring-[#0D7C66] focus:outline-none" />
+      </div>
+
+      <!-- BẮT BUỘC: Văn Bản Pháp Lý & Đồng Ý Đặt Hàng -->
+      <div id="pharmacy-legal-box" class="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-300 text-stone-800 space-y-2.5">
+        <div class="flex items-start gap-2.5">
+          <input 
+            type="checkbox" 
+            id="pharmacy-terms-checkbox" 
+            required
+            onclick="handlePharmacyTermsCheckboxClick()"
+            onchange="handlePharmacyTermsChange(this.checked)"
+            class="mt-0.5 h-4 w-4 rounded text-[#0D7C66] focus:ring-[#0D7C66] border-stone-300 cursor-pointer accent-[#0D7C66]" 
+          />
+          <label for="pharmacy-terms-checkbox" class="text-xs leading-relaxed text-stone-700 select-none cursor-pointer">
+            <strong class="text-amber-950 font-bold block mb-0.5">Văn bản pháp lý bắt buộc:</strong>
+            Tôi xác nhận đã đọc, hiểu rõ và <a href="/terms" onclick="openLegalTermsModal(event)" class="font-bold text-[#0D7C66] underline hover:text-[#00614f] cursor-pointer">đồng ý với Văn bản Pháp lý &amp; Điều khoản giao dịch</a> của GoCare trước khi đặt hàng.
+          </label>
+        </div>
+        <button 
+          type="button" 
+          onclick="openLegalTermsModal(event)" 
+          class="w-full py-2 px-3 rounded-xl bg-white hover:bg-emerald-50 text-[#0D7C66] border border-[#0D7C66] font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer active:scale-95"
+        >
+          <span class="material-symbols-outlined text-base">description</span>
+          <span>Bấm Vào Đây Để Xem Văn Bản Pháp Lý &amp; Đồng Ý</span>
+        </button>
+        <p id="pharmacy-legal-hint" class="text-[11px] text-amber-900 font-medium flex items-center gap-1 pl-1">
+          <span class="material-symbols-outlined text-[13px] text-amber-700">lock</span>
+          Bắt buộc bấm đồng ý điều khoản pháp lý để mở khóa nút đặt hàng.
+        </p>
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-2 border-t border-stone-200">
+        <button type="button" onclick="closePharmacyOrderModal()" class="px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 hover:bg-stone-50 text-xs font-semibold transition-colors cursor-pointer">
+          Hủy Bỏ
+        </button>
+        <button 
+          type="submit" 
+          id="btn-pharmacy-confirm-order"
+          disabled
+          class="px-5 py-2.5 rounded-xl bg-[#0D7C66] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 opacity-60 cursor-not-allowed"
+        >
+          <span class="material-symbols-outlined text-sm" id="pharmacy-confirm-icon">lock</span>
+          <span id="pharmacy-confirm-text">Xác Nhận Đặt Hàng</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="w-full bg-[#064E3B] text-emerald-100 pt-16 pb-12 border-t border-[#0A3D31]">
 <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
@@ -780,9 +886,9 @@ Trực tiếp kết nối cùng <strong>Nhà Thuốc An Khang</strong> và <stro
 <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-emerald-200/70">
 <div>© 2025 GOCARE. Toàn bộ bản quyền được bảo hộ. Cấp phép hoạt động khám chữa bệnh số 08842/BYT-GPHĐ cấp ngày 15/01/2023.</div>
 <div class="flex flex-wrap items-center gap-6">
-<a class="hover:text-white transition-colors" data-path="chinh-sach-bao-mat-ehr" href="#">Chính Sách Bảo Mật EHR</a>
-<a class="hover:text-white transition-colors" data-path="quy-trinh-y-khoa" href="#">Quy Chuẩn An Toàn Bệnh Nhân</a>
-<a class="hover:text-white transition-colors" data-path="dieu-khoan-dich-vu" href="#">Điều Khoản Sử Dụng</a>
+<a href="/terms" class="hover:text-white transition-colors cursor-pointer" onclick="openLegalTermsModal(event)">Chính Sách Bảo Mật EHR</a>
+<a href="/terms" class="hover:text-white transition-colors cursor-pointer" onclick="openLegalTermsModal(event)">Quy Chuẩn An Toàn Bệnh Nhân</a>
+<a href="/terms" class="hover:text-white transition-colors cursor-pointer underline font-bold" onclick="openLegalTermsModal(event)">Văn Bản Pháp Lý &amp; Điều Khoản Sử Dụng</a>
 </div>
 </div>
 </div>

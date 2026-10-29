@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { HeaderNav } from "@/components/HeaderNav";
+import { triggerLegalTermsModal } from "@/components/LegalTermsModal";
 import { clevelandClinicApi, GOCARE_KEYS } from "@/lib/gocare-apis";
 
 export const Route = createFileRoute("/doctors")({
@@ -295,7 +296,15 @@ function DoctorsPage() {
   const [medicalNotes, setMedicalNotes] = useState(
     "Thăm khám định kỳ huyết áp, rà soát lại thuốc theo phác đồ.",
   );
+  const [agreeTerms, setAgreeTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Automatically mark agreeTerms = true when user confirms in LegalTermsModal
+  useEffect(() => {
+    const onAgreed = () => setAgreeTerms(true);
+    window.addEventListener("gocare:terms-agreed", onAgreed);
+    return () => window.removeEventListener("gocare:terms-agreed", onAgreed);
+  }, []);
 
   const filteredDoctors = DOCTORS.filter((doc) => {
     const matchesSpecialty =
@@ -309,12 +318,22 @@ function DoctorsPage() {
 
   const handleOpenBooking = (doctor: Doctor) => {
     setSelectedDoctor(doctor);
+    setAgreeTerms(false);
     setIsBookingOpen(true);
   };
 
   const handleConfirmBooking = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedDoctor) return;
+
+    if (!agreeTerms) {
+      toast.error(
+        "Yêu cầu pháp lý: Quý khách vui lòng đọc và bấm chọn đồng ý với Điều khoản pháp lý trước khi xác nhận đặt lịch!",
+        { duration: 5000 },
+      );
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -724,6 +743,66 @@ function DoctorsPage() {
                 ></textarea>
               </div>
 
+              {/* Bắt buộc: Thỏa thuận văn bản pháp lý */}
+              <div className="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-300 text-stone-800 space-y-2.5">
+                <div className="flex items-start gap-2.5">
+                  <input
+                    type="checkbox"
+                    id="doctor-terms-checkbox"
+                    required
+                    checked={agreeTerms}
+                    onChange={(e) => {
+                      if (e.target.checked && !agreeTerms) {
+                        triggerLegalTermsModal();
+                      } else {
+                        setAgreeTerms(e.target.checked);
+                      }
+                    }}
+                    className="mt-0.5 h-4 w-4 rounded text-[#0D7C66] focus:ring-[#0D7C66] border-stone-300 cursor-pointer accent-[#0D7C66]"
+                  />
+                  <label
+                    htmlFor="doctor-terms-checkbox"
+                    className="text-xs leading-relaxed text-stone-700 cursor-pointer select-none"
+                  >
+                    <strong className="text-amber-950 font-bold block mb-0.5">
+                      Văn bản pháp lý bắt buộc:
+                    </strong>
+                    Tôi xác nhận đã đọc, hiểu rõ và{" "}
+                    <a
+                      href="/terms"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        triggerLegalTermsModal();
+                      }}
+                      className="font-bold text-[#0D7C66] underline hover:text-[#00614f] cursor-pointer inline-block"
+                    >
+                      đồng ý với Văn bản Pháp lý &amp; Điều khoản dịch vụ y tế
+                    </a>{" "}
+                    của GoCare trước khi hoàn tất đặt lịch.
+                  </label>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => triggerLegalTermsModal()}
+                  className="w-full py-2 px-3 rounded-xl bg-white hover:bg-emerald-50 text-[#0D7C66] border border-[#0D7C66] font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-base">description</span>
+                  <span>
+                    {agreeTerms
+                      ? "Đã Đồng Ý (Bấm để xem lại văn bản pháp lý)"
+                      : "Bấm Vào Đây Để Xem Văn Bản Pháp Lý & Đồng Ý"}
+                  </span>
+                </button>
+                <p className="text-[11px] text-amber-900 flex items-center gap-1 font-medium pl-1">
+                  <span className="material-symbols-outlined text-[13px] text-amber-700">
+                    {agreeTerms ? "check_circle" : "lock"}
+                  </span>
+                  {agreeTerms
+                    ? "Đã xác nhận đồng ý điều khoản. Quý khách có thể bấm 'Xác Nhận Đặt Lịch' ngay."
+                    : "Bắt buộc bấm đồng ý văn bản pháp lý để mở khóa nút đặt lịch."}
+                </p>
+              </div>
+
               {/* Footer Actions */}
               <div className="pt-2 flex items-center justify-between gap-3 border-t border-stone-200">
                 <span className="text-xs text-stone-500">
@@ -733,14 +812,18 @@ function DoctorsPage() {
                   <button
                     type="button"
                     onClick={() => setIsBookingOpen(false)}
-                    className="px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 hover:bg-stone-50 text-xs font-semibold transition-colors"
+                    className="px-4 py-2.5 rounded-xl border border-stone-200 text-stone-700 hover:bg-stone-50 text-xs font-semibold transition-colors cursor-pointer"
                   >
                     Hủy Bỏ
                   </button>
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="px-5 py-2.5 rounded-xl bg-[#0D7C66] hover:bg-[#00614f] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5"
+                    disabled={isSubmitting || !agreeTerms}
+                    className={`px-5 py-2.5 rounded-xl font-bold text-xs shadow-md transition-all flex items-center gap-1.5 ${
+                      agreeTerms && !isSubmitting
+                        ? "bg-[#0D7C66] hover:bg-[#00614f] text-white cursor-pointer"
+                        : "bg-stone-300 text-stone-500 cursor-not-allowed opacity-75"
+                    }`}
                   >
                     {isSubmitting ? (
                       <>
@@ -751,7 +834,9 @@ function DoctorsPage() {
                       </>
                     ) : (
                       <>
-                        <span className="material-symbols-outlined text-sm">check_circle</span>
+                        <span className="material-symbols-outlined text-sm">
+                          {agreeTerms ? "check_circle" : "lock"}
+                        </span>
                         <span>Xác Nhận Đặt Lịch</span>
                       </>
                     )}

@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
 import { ConnectedApisModal } from "@/components/ConnectedApisModal";
 import { AiHealthAssistantModal } from "@/components/AiHealthAssistantModal";
+import { LegalTermsModal } from "@/components/LegalTermsModal";
 
 function NotFoundComponent() {
   return (
@@ -140,6 +141,7 @@ function RootComponent() {
       <Outlet />
       <ConnectedApisModal />
       <AiHealthAssistantModal />
+      <LegalTermsModal />
       <Toaster position="top-right" richColors />
     </QueryClientProvider>
   );
