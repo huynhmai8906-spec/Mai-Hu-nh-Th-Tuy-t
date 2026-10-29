@@ -244,11 +244,13 @@ function Dashboard() {
                   notes: "Kích hoạt tự động từ nút gửi khai báo y tế khẩn cấp",
                 });
 
-                await supabase.from("triage_reports").insert({
-                  user_id: session.user.id,
-                  pain_level: pain,
-                  urgent: true,
-                });
+                if (session?.user?.id) {
+                  await supabase.from("triage_reports").insert({
+                    user_id: session.user.id,
+                    pain_level: pain,
+                    urgent: true,
+                  });
+                }
 
                 toast.success(
                   `ĐÃ ĐIỀU PHỐI XE CẤP CỨU ${dispatchResult.vehicleNumber}! ${dispatchResult.nurseCchnName} (${dispatchResult.nurseCchnLicense}) đang trên đường đến (ETA ~${dispatchResult.estimatedArrivalMinutes} phút).`,
@@ -261,9 +263,11 @@ function Dashboard() {
               }
 
               // Normal Triage -> Log to Supabase and validate against Cleveland Clinic Geriatric standards
-              const { error } = await supabase
-                .from("triage_reports")
-                .insert({ user_id: session.user.id, pain_level: pain, urgent: false });
+              const { error } = session?.user?.id
+                ? await supabase
+                    .from("triage_reports")
+                    .insert({ user_id: session.user.id, pain_level: pain, urgent: false })
+                : { error: null };
 
               if (error) {
                 toast.error("Gửi thất bại: " + error.message);

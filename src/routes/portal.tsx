@@ -184,6 +184,7 @@ function Portal() {
               };
               const mockSession = {
                 access_token: "google-healthcare-token",
+                refresh_token: "mock-google-refresh-token",
                 user: mockGoogleUser,
               };
               await supabase.auth.setSession(mockSession);
@@ -198,6 +199,7 @@ function Portal() {
               };
               const mockSession = {
                 access_token: "vneid-level2-token",
+                refresh_token: "mock-vneid-refresh-token",
                 user: mockVNeIDUser,
               };
               await supabase.auth.setSession(mockSession);

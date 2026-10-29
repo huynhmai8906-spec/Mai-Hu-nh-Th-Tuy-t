@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { HeaderNav } from "@/components/HeaderNav";
 import { triggerLegalTermsModal } from "@/components/LegalTermsModal";
